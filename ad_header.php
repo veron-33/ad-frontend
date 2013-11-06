@@ -18,7 +18,6 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 <script src="fancytree/jquery.fancytree-all.min.js" type="text/javascript"></script>
 <!-- /fancytree -->
 
-
 <script type="text/javascript" src="js/jscript.js"></script>
 <title>AD FrontEnd on <?php echo "$site_name" ?></title>
 </head>
