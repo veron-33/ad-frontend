@@ -2,10 +2,9 @@
 /*
 Конфигурационный файл с настройками.
 
-Перед использованием скрипта "Visiton" необходимо настройить!
+Перед использованием скрипта "AD Frontend" необходимо настройить!
 */
 if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельно (не изменять!)
-
 
 // Имя сайта (ввести просто название) - чушь какаято
 $site_name = "veron.linkpc.net";
@@ -31,10 +30,9 @@ $fail_time = 50;
 
 // Переменные, заданные по-умолчанию
 //$today = date('d.m.Y');  //Сегодняшний день
-$my_ip = $_SERVER['REMOTE_ADDR'];
+//$my_ip = $_SERVER['REMOTE_ADDR'];
 if (!isset($_SESSION['admin'])) {$_SESSION['admin']=false;}
 
 // страница по-умолчанию
 $target = (isset($_SESSION['target'])) ? $_SESSION['target']:"ad_tree.php";
-
 ?>
