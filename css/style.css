@@ -1,0 +1,170 @@
+@charset "windows-1251";
+/* CSS Document */
+
+body {
+	margin:0;
+	padding:0;
+	/*background: url(img/back.gif) repeat-x #f1f7fd fixed top;*/
+	background: white;
+}
+
+.top_div {
+	background:#3CF;
+	height:52px;
+	width:100%;
+	position:fixed;
+	top:0;
+	z-index:100;
+}
+
+.header {
+	position:fixed;
+	top:0;
+	width:100%;
+	height:55px;
+}
+
+.headerl {
+	background: url(img/headerl.png) no-repeat;
+	width: 9px;
+}
+
+.headerr {
+	background: url(img/headerr.png) no-repeat;
+	width: 9px;
+}
+
+.headerc {
+	background: url(img/headerc.png) repeat-x;
+	text-align: left;
+}
+.header-text {
+	padding:10px;
+	font-size:26px;
+	color:#009 !important;
+	float:left;
+}
+.header-text2 {
+	padding:10px;
+	font-size:14px;
+	float:right;
+	text-decoration:none;
+	color:#006;
+}
+
+.header-table {
+	margin:0px;
+	float:right;
+	font-size:12px;
+	text-align:right;
+}
+.header_table td {
+	padding:0;
+}
+	
+.header-table input {
+	background:none;
+	border:dotted 1px;
+	margin:0;
+}
+.header-submit {
+	cursor:pointer;
+	height:40px;
+	margin-left:2px;
+	border:1px #333 !important;
+}
+a {
+	text-decoration:none;
+	color:#000;
+}
+a:hover {
+	color:#03C;
+	border:1px #03C;
+}
+span.tree_title {
+	font-family: tahoma, arial, helvetica;
+	font-size: 10pt; 
+	font-weight: bold;
+	color:#46494c;
+	background:left no-repeat url(img/tree16.png);
+	padding-left:18px;
+	margin-left:2px;
+	
+}
+
+.range-table {
+	border:1px #333;
+}
+
+.error_div {
+	display:none;
+	border:dotted #F00 1px;
+	background:#FFF;
+	font-size:20px;
+	color:#F00;
+	width:95%;
+	padding:5px;
+	margin: 70px 10px 10px 10px;
+}
+.hidden {
+	display:none;
+	visibility:hidden;	
+}
+
+span.prim {
+	font-size:14px;
+}
+#top_table {
+	height: 55px;
+	width: 100%;
+	position:fixed;
+	top:0;
+	z-index:100;
+	
+}
+.exit_text {
+	color: #FF0000;
+}
+.page_title {	/* не исп */
+	text-align:center;
+	font-weight:bold;
+	font-size:20px;
+	vertical-align:top;
+	color: #6F6f6f;
+}
+#main_table_tree {
+	text-align:left;
+	top:78px;
+	position:fixed;
+	float:left;
+	width:100%;
+}
+#main_table_tree tr td {
+	border:2px groove #CCCCCC;
+}
+
+
+#tree_objects {
+	width:80%;
+}
+
+.top_menu {
+	height:26px;
+	position:fixed;
+	z-index:100;
+	top:52px;
+	left:0px;
+	width:100%;
+	background-color: #f5f6f7;
+	border-top:1px solid #0066FF;
+}
+#create_user_btn {
+	cursor:pointer;
+	padding-top:2px;
+	height:26px;
+	width:200px;
+	text-wrap:none;
+}
+#page_info {
+	background-color:#f5f6f7;
+}

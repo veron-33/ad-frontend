@@ -1,0 +1,62 @@
+<?php
+/*
+Файл шапки страницы
+*/
+if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельнo
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" href="css/style.css" rel="stylesheet" />
+<script src="js/jquery.min.js" type="text/javascript"></script>
+<script src="js/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script src="js/colResizable-1.3.med.js" type="text/javascript"></script>
+
+<!-- fancytree -->
+<link type="text/css" href="fancytree/skin-win8/ui.fancytree.css" rel="stylesheet" />
+<script src="fancytree/jquery.fancytree-all.min.js" type="text/javascript"></script>
+<!-- /fancytree -->
+
+
+<script type="text/javascript" src="js/jscript.js"></script>
+<title>AD FrontEnd on <?php echo "$site_name" ?></title>
+</head>
+<body>
+    <div class="top_div">
+          <div class="header-text"><a href="index.php">AD FrontEnd: <?php echo $ad_host; ?></a></div>
+          <?php if ($_SESSION['admin'] !== true) { ?>
+          <form name="autorization" method="post" action="index.php">
+              <table class="header-table" border="0" cellpadding="0" cellspacing="0">
+                  <tr>
+                      <td width="150" align="left">DC=<?php echo $ad_host; ?></td>
+                      <td>Логин:&nbsp;</td>
+                      <td><input type="text" name="username" tabindex="1"  /></td>
+                      <td rowspan="2"><input type="submit" value="Вход" class="header-submit" tabindex="3" /></td>
+                  </tr>
+                  <tr>
+                      <td align="left">DN=<?php echo $ad_domain; ?></td>
+                      <td>Пароль:&nbsp;</td>
+                      <td><input type="password" name="userpass" tabindex="2" /></td>
+                  </tr>
+              </table>
+              <input type="hidden" name="act" value="autorization" />
+          </form>
+          <?php
+      }
+      else {
+      ?>
+          <table class="header-text2" border="0" cellpadding="0" cellspacing="0">
+              <tr>
+                  <td colspan="2">Вход выполнен:&nbsp;<?php echo  $_SESSION['cur_username'] ?></td>
+              </tr>
+              <tr>
+                  <td class="exit_text" align="right"><a href="?exit">Выход</a></td>
+              </tr>
+          </table>
+          <?php } ?>	
+    	
+	</div>	
+    <div class="top_menu">
+    	<div id="create_user_btn" onclick="create_user_get_form()">Создать пользователя</div>
+    </div>
