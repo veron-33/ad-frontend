@@ -14,8 +14,8 @@ if ($_SESSION['admin'] === true) {
         <td valign="top" id="tree_objects" >
         </td>
     </tr>
-    <tr height="40">
-    	<td colspan="2" align="center" height="40">
+    <tr height="20">
+    	<td colspan="2" align="right">
         	<div id="page_info"></div>
         </td>
     </tr> 

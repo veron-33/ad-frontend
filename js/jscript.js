@@ -12,8 +12,8 @@ function window_width() {
 }
 
 $(window).resize(function () {
-	$("#main_table_tree").height(window_height()-80);
-	$("#main_table_tree").width(window_width()-5);
+	$("#main_table_tree").height(window_height()-72);
+	$("#main_table_tree").width(window_width()-2);
 });
 //####################################################################################
 
