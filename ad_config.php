@@ -23,6 +23,8 @@ $ad_dn = "DC=".implode(",DC=",explode(".", $ad_domain));
 $ad_conf = array (
   'base_dn'=>$ad_dn,
   'account_suffix'=>'@'.$ad_domain,
+  'use_tls'=>false,
+  'use_ssl'=>true,
   'domain_controllers'=>array($ad_host));
  // Указываем количество попыток при неудачном вводе пароля
 $fail_time = 50;

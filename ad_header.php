@@ -8,16 +8,18 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
 <link type="text/css" href="css/style.css" rel="stylesheet" />
 <script src="js/jquery.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="./js/jquery.form.js"></script>
 <script src="js/jquery-ui.custom.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
 <script src="js/colResizable-1.3.med.js" type="text/javascript"></script>
-
 <!-- fancytree -->
 <link type="text/css" href="fancytree/skin-win8/ui.fancytree.css" rel="stylesheet" />
 <script src="fancytree/jquery.fancytree-all.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="js/jquery.fancytree.persist.js"></script>
 <!-- /fancytree -->
-
 <script type="text/javascript" src="js/jscript.js"></script>
 <title>AD FrontEnd on <?php echo "$site_name" ?></title>
 </head>
@@ -57,5 +59,5 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
     	
 	</div>	
     <div class="top_menu">
-    	<div id="create_user_btn" onclick="create_user_get_form()">Создать пользователя</div>
+    	<div id="create_user_btn" onclick="create_user()">Создать пользователя</div>
     </div>

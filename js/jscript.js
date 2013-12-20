@@ -24,8 +24,18 @@ $(window).resize(function () {
 function build_tree (add_arr) {
 	//задаем параметры дерева
 	var arr = {
+		extensions: ["persist"],    // расширения куки
 		selectMode: 1,
 		checkbox: false,
+		select: function (e, data) {    //ф-ция выбора нода (селектор, галочка)
+			selected_node = "" + $.map(data.tree.getSelectedNodes(), function (node) {  //запоминаем выбранный нод
+				return node.key;
+			});
+			if ($("#cr_user_cont")) {   //если открыто окно нового пользователя - вставляем  путь нода в поле
+				var a = selected_node.split('__').reverse().join(" / ");
+				$("#cr_user_cont").attr("value",a);
+			}
+		},
 		fx: { height: "toggle", duration: 200 },
 		strings: {
 			loading: "Загрузка…",
@@ -52,22 +62,25 @@ function build_tree (add_arr) {
 		activate: function (e, data) {
 			//$("#tree_objects ul").html('');
 			//$("#tree_objects").fancytree("getRootNode").children =[];
-			node = data.node;
+			var node = data.node;
 			$("#tree_objects").fancytree("option", "source", {url: "ajax/ad_ajax_tree.php",	data: {act: 'get_tree', type: 'objects', pNode: node.key}});
 			//$.getJSON("ajax/ad_ajax_tree.php", {act: 'get_tree', type: 'objects', pNode: node.key}, function (data) {
 			//		$("#tree_objects").fancytree("getRootNode").addChildren(data);
 			//})
 		}
-    }
+    };
 	$("#tree").fancytree(arr);
 }
 
 $(function(){
+	selected_node = "Выберите контейнер в дереве каталогов";
+    $("#dialog_div").dialog({autoOpen:false});
     build_tree();
 	$(window).resize();
 	$("#main_table_tree").colResizable({
 		liveDrag:true
 	});
+	// строим таблицу объектов контейнера
 	$("#tree_objects").fancytree({
 				  imagePath: "./css/img/",	
 				  selectMode: 1,
@@ -79,53 +92,49 @@ $(function(){
 				  source: []				  
 			})
 });		
-		
-	
-function obj_tree(key) {
-	$("#tree_objects").fancytree({
-		imagePath: "./css/img/",	
-		selectMode: 1,
-		checkbox: false,
-		strings: {
-			loading: "Загрузка…",
-			loadError: "Ошибка закгрузки объектов каталога!"
-		},
-		source : {
-			url: "ajax/ad_ajax_tree.php",
-			data: {
-				act: "get_tree",
-				type: "objects",
-				pNode: key }
-		},
-	
-	})
-}
-		
-		
-		
- 
+
+
 // нажатие кнопки "создать пользователя". запрос формы для ввода.		
-function create_user_get_form() {
-	//очищаем рабочую область и включаем лоадинг
-	$("#tree_objects").html("");
-	$("#tree_objects").addClass("waiting");
-	//включаем радиокнопки у дерева
-	var tree_par = {
-		selectMode: 1,
-		checkbox: true,
-		classNames: '{checkbox: "dynatree-radio"}'
-	};
-	build_tree(tree_par);
-	//$("#tree").dynatree.checkbox = true;
-	//выполняем запрос формы
-	$.ajax ({
-		url: "ajax/ad_create_user.html",
-		success: function (data) {
-			$rez = "";
-			if (data) {
-			  $("#tree_objects").removeClass("waiting");
-			  $("#tree_objects").html(data);	
-			}
-		}
-	});
+function create_user() {
+    $("#tree").fancytree("option", "checkbox", true);
+	//посылаем запрос для получения формы для ввода данных нового пользователя
+    $.get(
+        "./ajax/ad_create_user.html",
+        function (data) {
+            $("#dialog_div").html(data);
+	        // в поле "Контейнер" вставляем текущее значение переменной выбранного контейнера
+	        $("#cr_user_cont").attr("value",selected_node.split('__').reverse().join(" / "));
+	        $("#cr_user_form").ajaxForm(function() {
+		        alert("Пользователь создан успешно!");
+	        });
+        }
+    );
+	// инициируем диалоговое окно с формой
+    $("#dialog_div").dialog({
+        title: "Создание нового пользователя",
+        //modal:true,
+	    position: ["center", 100],
+        width: "600px",
+        buttons: {
+            "Создать":function () {
+	            check_cr_user_form();
+	            $("#cr_user_form").submit();
+	            $("#dialog_div").dialog("close");
+	            //отключаем чекбоксы у дерева
+	            $("#tree").fancytree("option", "checkbox", false);
+	            return false
+            },
+            "Отмена":function (){
+	            $("#dialog_div").dialog("close");
+	            $("#tree").fancytree("option", "checkbox", false);
+            }
+        }
+    });
+    $("#dialog_div").dialog("open");
+}
+
+
+
+function check_cr_user_form() {
+ return false;
 }

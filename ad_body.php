@@ -14,9 +14,17 @@ if ($_SESSION['admin'] === true) {
         <td valign="top" id="tree_objects" >
         </td>
     </tr>
-    <tr height="40">
-    	<td colspan="2" align="center" height="40">
-        	<div id="page_info"></div>
+    <tr height="20">
+    	<td colspan="2" align="right">
+        	<div id="page_info">
+                    <?php
+                    $E_TIME=round(((time()+microtime())-$S_TIME),8);        //Отсекаю время
+                    echo "server: $E_TIME sec, ";
+                    ?>
+                    client: <span id="client_time"></span> sec
+                    <br />
+                    © Created by <a style="text-decoration:none" href="mailto:veron-33@yandex.ru">Veron</a>, 2013 <br />
+        	</div>
         </td>
     </tr> 
 </table>      

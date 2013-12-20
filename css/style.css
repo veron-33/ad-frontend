@@ -14,7 +14,7 @@ body {
 	width:100%;
 	position:fixed;
 	top:0;
-	z-index:100;
+	/*z-index:1;*/
 }
 
 .header {
@@ -24,20 +24,6 @@ body {
 	height:55px;
 }
 
-.headerl {
-	background: url(img/headerl.png) no-repeat;
-	width: 9px;
-}
-
-.headerr {
-	background: url(img/headerr.png) no-repeat;
-	width: 9px;
-}
-
-.headerc {
-	background: url(img/headerc.png) repeat-x;
-	text-align: left;
-}
 .header-text {
 	padding:10px;
 	font-size:26px;
@@ -119,13 +105,13 @@ span.prim {
 	width: 100%;
 	position:fixed;
 	top:0;
-	z-index:100;
+	/*z-index:100;*/
 	
 }
 .exit_text {
 	color: #FF0000;
 }
-.page_title {	/* не исп */
+.page_title {	/* пїЅпїЅ пїЅпїЅпїЅ */
 	text-align:center;
 	font-weight:bold;
 	font-size:20px;
@@ -151,7 +137,7 @@ span.prim {
 .top_menu {
 	height:26px;
 	position:fixed;
-	z-index:100;
+	/*z-index:100;*/
 	top:52px;
 	left:0px;
 	width:100%;
@@ -167,4 +153,5 @@ span.prim {
 }
 #page_info {
 	background-color:#f5f6f7;
+    font-size: 11px;
 }
