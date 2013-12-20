@@ -111,12 +111,15 @@ class adLDAPUsers {
         
         // Determine the container
         $attributes["container"] = array_reverse($attributes["container"]);
-        $container = "OU=" . implode(", OU=",$attributes["container"]);
+        $container = "OU=" . implode(",OU=",$attributes["container"]);
 
         // Add the entry
-        $result = @ldap_add($this->adldap->getLdapConnection(), "CN=" . $add["cn"][0] . ", " . $container . "," . $this->adldap->getBaseDn(), $add);
-        if ($result != true) { 
-            return false; 
+        $result = @ldap_add($this->adldap->getLdapConnection(), "CN=" . $add["cn"][0] . "," . $container . "," . $this->adldap->getBaseDn(), $add);
+        if ($result != true) {
+			printf("CN=" . $add["cn"][0] . "," . $container . "," . $this->adldap->getBaseDn(). "<br>");
+	        printf("LDAP-ErrorNumber %s<br>\n", ldap_errno($this->adldap->getLdapConnection()));
+	        printf("LDAP-Error: %s<br>\n", ldap_error($this->adldap->getLdapConnection()));
+	        return false;
         }
         
         return true;

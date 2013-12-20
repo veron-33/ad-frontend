@@ -1,33 +1,33 @@
-<div style="width:inherit">
-	<div style="width:inherit; text-align:center">Создание нового пользователя</div>
-    <br>
-    <table>
-    	<tr>
-        	<td><label for="user_fam">Фамилия: </label></td>
-            <td><input type="text" id="user_fam" name="user_fam"></td>
-        </tr>
-        <tr>
-        	<td><label for="user_imya">Имя: </label></td>
-            <td><input type="text" id="user_imya" name="user_imya"></td>
-        </tr>
-        <tr>
-        	<td><label for="user_fullname">Полное имя: </label></td>
-            <td><input type="text" id="user_fullname" name="user_fullname"></td>
-        </tr>
-        <tr>
-        	<td><label for="user_email">Электронна япочта: </label></td>
-            <td><input type="text" id="user_email" name="user_email"></td>
-        </tr>
-        <tr>
-        	<td><label for="user_pass">Пароль: </label></td>
-            <td><input type="text" id="user_pass" name="user_pass"></td>
-        </tr>
-        <tr>
-        	<td><label for="user_pass2">Подтвердите пароль: </label></td>
-            <td><input type="text" id="user_pass2" name="user_pass2"></td>
-        </tr>
-        <tr>
-        	<td><input type="button" name="Создать..."></td>
-        </tr>	
-    </table>
-</div>
+<form action="./ajax/ad_create_user.php" id="cr_user_form">
+<table>
+    <tr>
+        <td><label for="cr_user_surn">Фамилия: </label></td>
+        <td><input size="40" type="text" id="cr_user_surn" name="cr_user_surn"></td>
+    </tr>
+    <tr>
+        <td><label for="cr_user_name">Имя: </label></td>
+        <td><input size="40" type="text" id="cr_user_name" name="cr_user_name"></td>
+    </tr>
+    <tr>
+        <td><label for="cr_user_fullname">Полное имя: </label></td>
+        <td><input size="40" type="text" id="cr_user_fullname" name="cr_user_fullname"></td>
+    </tr>
+	<tr>
+		<td><label for="cr_user_logon">Имя входа:</label> </td>
+		<td><input size="40" type="text" id="cr_user_logon" name="cr_user_logon"></td>
+	</tr>
+    <tr>
+        <td><label for="cr_user_email">Электронна япочта: </label></td>
+        <td><input size="40" type="text" id="cr_user_email" name="cr_user_email"></td>
+    </tr>
+    <tr>
+        <td><label for="cr_user_pass">Пароль (дважды): </label></td>
+        <td><input size="19" type="password" id="cr_user_pass" name="cr_user_pass"><input size="19" style="margin-left: 14px" type="password" id="cr_user_pass2" name="user_pass2"></td>
+    </tr>
+    <tr>
+        <td><label for="cr_user_cont">Контейнер: </label></td>
+        <td><input size="40" type="text" readonly id="cr_user_cont" value="Выбрать слева" name="cr_user_cont"></td>
+    </tr>
+</table>
+<input type="hidden" name="act" value="cr_user">
+</form>
