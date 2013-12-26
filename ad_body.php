@@ -16,6 +16,7 @@ if ($_SESSION['admin'] === true) {
     </tr>
     <tr height="20">
     	<td colspan="2" align="right">
+<<<<<<< HEAD
         	<div id="page_info">
                     <?php
                     $E_TIME=round(((time()+microtime())-$S_TIME),8);        //Отсекаю время
@@ -25,6 +26,9 @@ if ($_SESSION['admin'] === true) {
                     <br />
                     © Created by <a style="text-decoration:none" href="mailto:veron-33@yandex.ru">Veron</a>, 2013 <br />
         	</div>
+=======
+        	<div id="page_info"></div>
+>>>>>>> master
         </td>
     </tr> 
 </table>      

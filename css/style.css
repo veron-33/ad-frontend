@@ -4,19 +4,20 @@
 body {
 	margin:0;
 	padding:0;
-	/*background: url(img/back.gif) repeat-x #f1f7fd fixed top;*/
 	background: white;
+    font-family: 'Trebuchet MS', Sans;
 }
 
 .top_div {
 	background:#3CF;
-	height:52px;
+	height:45px;
 	width:100%;
 	position:fixed;
 	top:0;
 	/*z-index:1;*/
 }
 
+<<<<<<< HEAD
 .header {
 	position:fixed;
 	top:0;
@@ -24,14 +25,17 @@ body {
 	height:55px;
 }
 
+=======
+>>>>>>> master
 .header-text {
-	padding:10px;
+	padding:5px;
 	font-size:26px;
-	color:#009 !important;
+	color:#006 !important;
 	float:left;
 }
+
 .header-text2 {
-	padding:10px;
+	padding:5px;
 	font-size:14px;
 	float:right;
 	text-decoration:none;
@@ -61,25 +65,11 @@ body {
 }
 a {
 	text-decoration:none;
-	color:#000;
+	/*color:#000;*/
 }
 a:hover {
 	color:#03C;
 	border:1px #03C;
-}
-span.tree_title {
-	font-family: tahoma, arial, helvetica;
-	font-size: 10pt; 
-	font-weight: bold;
-	color:#46494c;
-	background:left no-repeat url(img/tree16.png);
-	padding-left:18px;
-	margin-left:2px;
-	
-}
-
-.range-table {
-	border:1px #333;
 }
 
 .error_div {
@@ -111,6 +101,7 @@ span.prim {
 .exit_text {
 	color: #FF0000;
 }
+<<<<<<< HEAD
 .page_title {	/* �� ��� */
 	text-align:center;
 	font-weight:bold;
@@ -118,9 +109,12 @@ span.prim {
 	vertical-align:top;
 	color: #6F6f6f;
 }
+=======
+
+>>>>>>> master
 #main_table_tree {
 	text-align:left;
-	top:78px;
+	top:71px;
 	position:fixed;
 	float:left;
 	width:100%;
@@ -137,8 +131,13 @@ span.prim {
 .top_menu {
 	height:26px;
 	position:fixed;
+<<<<<<< HEAD
 	/*z-index:100;*/
 	top:52px;
+=======
+	z-index:100;
+	top:45px;
+>>>>>>> master
 	left:0px;
 	width:100%;
 	background-color: #f5f6f7;
@@ -154,4 +153,8 @@ span.prim {
 #page_info {
 	background-color:#f5f6f7;
     font-size: 11px;
+<<<<<<< HEAD
 }
+=======
+}
+>>>>>>> master
