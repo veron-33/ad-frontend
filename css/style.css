@@ -17,7 +17,6 @@ body {
 	/*z-index:1;*/
 }
 
-<<<<<<< HEAD
 .header {
 	position:fixed;
 	top:0;
@@ -25,8 +24,6 @@ body {
 	height:55px;
 }
 
-=======
->>>>>>> master
 .header-text {
 	padding:5px;
 	font-size:26px;
@@ -101,7 +98,7 @@ span.prim {
 .exit_text {
 	color: #FF0000;
 }
-<<<<<<< HEAD
+
 .page_title {	/* �� ��� */
 	text-align:center;
 	font-weight:bold;
@@ -109,9 +106,7 @@ span.prim {
 	vertical-align:top;
 	color: #6F6f6f;
 }
-=======
 
->>>>>>> master
 #main_table_tree {
 	text-align:left;
 	top:71px;
@@ -120,7 +115,8 @@ span.prim {
 	width:100%;
 }
 #main_table_tree tr td {
-	border:2px groove #CCCCCC;
+	border:2px groove #dddddd;
+    height: 100%;
 }
 
 
@@ -131,13 +127,8 @@ span.prim {
 .top_menu {
 	height:26px;
 	position:fixed;
-<<<<<<< HEAD
 	/*z-index:100;*/
-	top:52px;
-=======
-	z-index:100;
 	top:45px;
->>>>>>> master
 	left:0px;
 	width:100%;
 	background-color: #f5f6f7;
@@ -148,13 +139,9 @@ span.prim {
 	padding-top:2px;
 	height:26px;
 	width:200px;
-	text-wrap:none;
 }
 #page_info {
 	background-color:#f5f6f7;
     font-size: 11px;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> master
+

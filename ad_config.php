@@ -24,7 +24,7 @@ $ad_conf = array (
   'base_dn'=>$ad_dn,
   'account_suffix'=>'@'.$ad_domain,
   'use_tls'=>false,
-  'use_ssl'=>true,
+  'use_ssl'=>false,
   'domain_controllers'=>array($ad_host));
  // Указываем количество попыток при неудачном вводе пароля
 $fail_time = 50;
