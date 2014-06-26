@@ -691,7 +691,7 @@ html, body{background-color:#ffffff;}
 .ui-tabs-nav{border-color:#d4d4d4;}
 
 /* Dialog states */
-.ui-dialog{border-color:#3399ff;background-color:#ffffff !important;}
+.ui-dialog{border-color:#0066ff;background-color:#ffffff !important;}
 .ui-dialog-titlebar{border-color:#3399ff;color:#ffffff;background-color:#3399ff;}
 .ui-dialog-buttonpane{border-color:#3399ff !important;background-color:#ffffff;}
 .ui-dialog-content{background-color:#ffffff !important;}

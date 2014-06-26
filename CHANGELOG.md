@@ -4,3 +4,18 @@
 * UI-fix: remove z-index of menu-bar
 * UI-fix: restyle text-imputs in new_user_popup
 * Fix bug of wrong height of the ldap-tree
+
+
+# 24.06.2014
+* New version of fancytree lib (2.1)
+* UI-fix: fixed header colours
+* UI-fix: changed font-family styles
+
+# 25.06.2014
+* UI-fix: fixed issue with height of trees after ft update
+* UI-fix: fixed icons's sizes of the tree's nodes after ft update
+
+# 26.06.2014
+* UI-fix: rewrited headertop. added logo
+* UI-fix: removed top-menu while unauthorizated
+
