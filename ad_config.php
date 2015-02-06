@@ -9,7 +9,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 // Настройки AD  #####################################################################
 
 // !!! Введите FQDN контролера домена:  !!!
-$ad_host = "veron-srv-w2k8.veronet.ru";
+$ad_host = "verondc.veronet.local";
 
 // выделяем имя домена
 $ad_domain = substr(strstr($ad_host,"."),1);
@@ -20,7 +20,7 @@ $ad_conf = array (
   'base_dn'=>$ad_dn,
   'account_suffix'=>'@'.$ad_domain,
   'use_tls'=>false,
-  'use_ssl'=>false,
+  'use_ssl'=>true,
   'domain_controllers'=>array($ad_host));
  // Указываем количество попыток при неудачном вводе пароля
 $fail_time = 50;

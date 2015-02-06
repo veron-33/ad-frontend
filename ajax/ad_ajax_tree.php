@@ -9,6 +9,7 @@ if (isset($_GET['act'])) {
 		$ob_type = (isset($_GET['type']))?$_GET['type']:NULL;
 		if (isset($_GET['pNode'])) {
 			$par_node = ($_GET['pNode']=="NULL")?$_GET['pNode']:explode("__",$_GET['pNode']);
+			//$par_node = ($_GET['pNode']=="NULL")?$_GET['pNode']:explode("__",explode(":",$_GET['pNode'])[1]);
 			echo (build_tree($par_node, $ob_type));
 		}
 	}

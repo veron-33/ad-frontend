@@ -19,3 +19,5 @@
 * UI-fix: rewrited headertop. added logo
 * UI-fix: removed top-menu while unauthorizated
 
+# 6.02.2015
+* New NODE.key format: setting container type in the node path

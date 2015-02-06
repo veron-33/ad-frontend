@@ -53,6 +53,13 @@ function get_cn($dn) {
 	$cn_arr = explode("=",$dn_arr[0]);
 	return $cn_arr[1];
 }
+
+function get_cont_type($dn) {
+	$dn_arr = explode(",",$dn);
+	$ct_arr = explode("=",$dn_arr[0]);
+	return $ct_arr[0];
+}
+
 function get_node_type ($dn) {
 	$ntype_arr = end($dn);
 	return $ntype_arr;
@@ -63,22 +70,38 @@ function get_node_type ($dn) {
 // dynatree дерево с подгрузской данных (arg: путь поиска, тип объекта для поиска,[проверка на наличие детей])
 function build_tree($foldername, $ob_type ,$check_child = false) {
 	global $adldap;
-	$folders = $adldap->folder()->listing($foldername, "oucn", false, $ob_type);
-	if ($foldername=="NULL") $foldername = array();
+	if ($foldername=="NULL") {
+		$foldername = array();
+		$path = "NULL";
+	} else {
+		$path = array();
+		foreach ($foldername as $value) {
+			$path[] = explode(":",$value)[1];
+		}
+	}
+
+	$folders = $adldap->folder()->listing($path, "oucn", false, $ob_type);
 	if ($folders["count"]==0 && $check_child) return false;
 	else if ($check_child) return true;
 	$result = array();
+	//print_r($folders);
+	//return false;
 	for ($i=0; $i < $folders["count"]; $i++) {
 		$curr_cn = get_cn($folders[$i]["dn"]);
+		$curr_ct = "CN";
 		$curr_type = get_node_type($folders[$i]["objectclass"]);
 		$result[$i] = array("title"=>$curr_cn);
-		if ($ob_type=="folders") $result[$i]["folder"] = "true";
+		if ($ob_type=="folders") {
+			$result[$i]["folder"] = "true";
+			$curr_ct=get_cont_type($folders[$i]["dn"]);
+		}
 		else $result[$i]["icon"] = "". $curr_type ."16.png";
 		$nf = $foldername;
-		array_unshift($nf, $curr_cn);
+		array_unshift($nf, $curr_ct.":".$curr_cn);
 		if (build_tree($nf, $ob_type, true)) {
 			$result[$i]["lazy"] = "true";
 		}
+		// key = <CN or OU>:<node>__<CN or OU>:<parent1>__<...>...
 		$result[$i]["key"]=implode("__",$nf);
 	}        
 	$result =  json_encode($result);    
