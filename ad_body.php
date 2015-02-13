@@ -11,7 +11,28 @@ if ($_SESSION['admin'] === true) {
 	<tr>
     	<td valign="top" id="tree">
         </td>
-        <td valign="top" id="tree_objects" >
+        <td valign="top" >
+            <div id="scrollParentob" style="height: inherit; overflow: auto">
+            <table id="tree_objects">
+                <colgroup>
+                    <col style="width:26px; max-width: 26px"></col>
+                    <col width="800px"></col>
+                    <col width="100px"></col>
+                    <col width="100px"></col>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th></th>
+                        <th>Имя</th>
+                        <th>Параметр1</th>
+                        <th>Параметр2</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            </div>
         </td>
     </tr>
     <tr height="20">

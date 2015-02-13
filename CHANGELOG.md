@@ -21,3 +21,8 @@
 
 # 6.02.2015
 * New NODE.key format: setting container type in the node path
+
+# 13.02.2015
+* Update Fancytree to last version
+* Update ColResizable script to last version
+* Enabled table-view in objects right panel

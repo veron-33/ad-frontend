@@ -625,7 +625,7 @@ class adLDAP {
         // Connect to the AD/LDAP server as the username/password
         $domainController = $this->randomController();
         if ($this->useSSL) {
-            $this->ldapConnection = ldap_connect("ldaps://" . $domainController, $this->adPort);
+           $this->ldapConnection = ldap_connect("ldaps://" . $domainController, $this->adPort);
         } else {
             $this->ldapConnection = ldap_connect($domainController, $this->adPort);
         }
@@ -709,7 +709,7 @@ class adLDAP {
         // Bind as the user        
         $ret = true;
         $this->ldapBind = @ldap_bind($this->ldapConnection, $username . $this->accountSuffix, $password);
-        if (!$this->ldapBind){ 
+        if (!$this->ldapBind){
             $ret = false; 
         }
         

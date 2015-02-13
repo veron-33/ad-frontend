@@ -15,7 +15,7 @@ catch (adLDAPException $e) {
 
 // Функция проверки авторизации
 function autorization($usern, $userp) {
-  global $error_text, $fail_time, $ad_host, $ad_domain, $ad_dn, $ad_conf, $adldap;
+  global $error_text, $fail_time, $adldap;
   if (!isset($_SESSION['login_failed'])) {
 	  // авторизуемся
 	  $_SESSION['admin'] =($adldap->authenticate($usern, $userp))?true:false;
@@ -25,19 +25,28 @@ function autorization($usern, $userp) {
 		  $_SESSION['cur_username'] = $userinfo->displayName;
 		  $_SESSION['usern'] = $usern;
 		  $_SESSION['userp'] = $userp;
+		  $_SESSION['login_fail'] = 0;
 	  }
 	  else {
-		  // Ставим проверку для запрета подбора пароля.
-		  if (isset($_SESSION['login_fail'])) {
-			  $_SESSION['login_fail']++;
+		  $er = $adldap->getLastError();
+		  if ($er == "Can't contact LDAP server") {
+			  $error_text = "Невозможно соединиться с контроллером домена!";
 		  }
 		  else {
-			  $_SESSION['login_fail'] = 1;
-		  }
-		  $error_text = "Ошибка при вводе логина/пароля! Осталось попыток: ".($fail_time-$_SESSION['login_fail']);
-		  if ($_SESSION['login_fail'] == $fail_time) {
-			  $_SESSION['login_failed'] = true;
-			  $error_text = "Вы исчерпали допустимое количество попыток ввода пароля! Ждите...";
+			  // Ставим проверку для запрета подбора пароля.
+			  if (isset($_SESSION['login_fail'])) {
+					  $_SESSION['login_fail']++;
+				  }
+			  else {
+					  $_SESSION['login_fail'] = 1;
+				  }
+			  if ($_SESSION['login_fail'] == $fail_time) {
+				  $_SESSION['login_failed'] = true;
+				  $error_text = "Вы исчерпали допустимое количество попыток ввода пароля! Ждите с моря погоды...";
+			  }
+			  else {
+				  $error_text = "Ошибка при вводе логина/пароля! Осталось попыток: ".($fail_time-$_SESSION['login_fail']);
+			  }
 		  }
 	  }
   }
@@ -66,8 +75,13 @@ function get_node_type ($dn) {
 }
 
 
-
-// dynatree дерево с подгрузской данных (arg: путь поиска, тип объекта для поиска,[проверка на наличие детей])
+/**
+ * dynatree дерево с подгрузской данных
+ * @param $foldername - путь поиска
+ * @param $ob_type - тип объекта для поиска
+ * @param bool $check_child - проверка на наличие "детей"
+ * @return array|bool|string
+ */
 function build_tree($foldername, $ob_type ,$check_child = false) {
 	global $adldap;
 	if ($foldername=="NULL") {

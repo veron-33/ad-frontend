@@ -110,8 +110,9 @@ class adLDAPUsers {
         $add["userAccountControl"][0] = $this->accountControl($control_options);
         
         // Determine the container
-        $attributes["container"] = array_reverse($attributes["container"]);
-        $container = "OU=" . implode(",OU=",$attributes["container"]);
+        // $attributes["container"] = array_reverse($attributes["container"]);
+        // $container = "OU=" . implode(",OU=",$attributes["container"]);
+        $container = implode(",",$attributes["container"]);
 
         // Add the entry
         $result = @ldap_add($this->adldap->getLdapConnection(), "CN=" . $add["cn"][0] . "," . $container . "," . $this->adldap->getBaseDn(), $add);

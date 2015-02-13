@@ -126,10 +126,19 @@ span.prim {
     padding: 0px;
 }
 
+#tree {
+	width: 20%;
+}
 
 #tree_objects {
-	width:80%;
+	width: 100%;
 }
+
+#tree_objects th {
+	border: solid #878787 1px;
+	text-align: center;
+}
+
 
 .top_menu {
 	height:26px;

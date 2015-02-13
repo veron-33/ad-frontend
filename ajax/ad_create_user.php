@@ -15,7 +15,8 @@ if (isset($_GET['act'])) {
 		include("../ad_config.php");
 		include("../ad_functions.php");
 
-		$cont=explode(" / ", $_GET["cr_user_cont"]);
+		$cont= str_replace(":", "=", explode("__", $_GET["cr_user_cont"]));
+		//$cont=  explode("__", $_GET["cr_user_cont"]);
 		$attributes=array(
 			"username"=>mb_convert_encoding($_GET["cr_user_logon"], "Windows-1252"),
 			"firstname"=>mb_convert_encoding($_GET["cr_user_name"], "Windows-1251", "UTF-8"),
@@ -27,6 +28,9 @@ if (isset($_GET['act'])) {
 			"display_name"=>$_GET["cr_user_fullname"]
 		);
 		//echo "cont=". $cont;
+
+		//print_r($cont);
+
 		$result = $adldap->user()->create($attributes);
 		if ($result) {
 			echo "true";

@@ -12,8 +12,9 @@ function window_width() {
 }
 
 $(window).resize(function () {
-	$("#main_table_tree").height(window_height()-72);
-	$("#main_table_tree").width(window_width()-2);
+	w=$("#main_table_tree");
+	w.height(window_height()-72);
+	w.width(window_width()-2);
 });
 //####################################################################################
 
@@ -21,22 +22,24 @@ $(window).resize(function () {
 
 
 //функция построения дерева каталогов
-function build_tree (add_arr) {
+function build_tree () {
 	//задаем параметры дерева
 	var arr = {
 		extensions: ["persist"],    // расширения куки
 		selectMode: 1,
+		generateIds: true,
 		checkbox: false,
 		select: function (e, data) {    //ф-ция выбора нода (селектор, галочка)
 			selected_node = "" + $.map(data.tree.getSelectedNodes(), function (node) {  //запоминаем выбранный нод
 				return node.key;
 			});
-			if ($("#cr_user_cont")) {   //если открыто окно нового пользователя - вставляем  путь нода в поле
-				var a = selected_node.split('__').reverse().join(" / ");
-				$("#cr_user_cont").attr("value",a);
+			if ($("#cr_user_form")) {   //если открыто окно нового пользователя - вставляем  путь нода в поле
+				var a = selected_node.replace(/..:/g, "" ).split('__').reverse().join(" / ");
+				$("#cr_user_cont_sh").attr("value", a);
+				$("#cr_user_cont").attr("value", selected_node);
 			}
 		},
-		fx: { height: "toggle", duration: 200 },
+		toggleEffect: { height: "toggle", duration: 200 },
 		strings: {
 			loading: "Загрузка…",
 			loadError: "Ошибка закгрузки дерева каталогов!"
@@ -47,8 +50,9 @@ function build_tree (add_arr) {
 				act: "get_tree",
 				type: "folders",
 				pNode: "NULL" }
+
 		},
-		lazyload: function (e, data) {
+		lazyLoad: function (e, data) {
 			data.result = $.ajax ({
 				url:"ajax/ad_ajax_tree.php",
 				dataType:"json",
@@ -63,7 +67,15 @@ function build_tree (add_arr) {
 			//$("#tree_objects ul").html('');
 			//$("#tree_objects").fancytree("getRootNode").children =[];
 			var node = data.node;
-			$("#tree_objects").fancytree("option", "source", {url: "ajax/ad_ajax_tree.php",	data: {act: 'get_tree', type: 'objects', pNode: node.key}});
+			obj_area = $("#tree_objects");
+			obj_area.fancytree(
+				"option",
+				"source",
+				{	url: "ajax/ad_ajax_tree.php",
+					data: {act: 'get_tree', type: 'objects', pNode: node.key},
+					success: function () {}
+				}
+			);
 			//$.getJSON("ajax/ad_ajax_tree.php", {act: 'get_tree', type: 'objects', pNode: node.key}, function (data) {
 			//		$("#tree_objects").fancytree("getRootNode").addChildren(data);
 			//})
@@ -82,15 +94,26 @@ $(function(){
 	});
 	// строим таблицу объектов контейнера
 	$("#tree_objects").fancytree({
-				  imagePath: "./css/img/",	
-				  selectMode: 1,
-				  checkbox: false,
-				  strings: {
-					  loading: "Загрузка…",
-					  loadError: "Ошибка закгрузки объектов каталога!"
-				  },
-				  source: []				  
-			})
+		scrollParent: $("#scrollParentob"),
+		extensions: ["persist", "table", "gridnav"],    // расширения куки
+		table: {
+			indentation: 20,
+			nodeColumnIdx: 1,
+			checkboxColumnIdx: 0
+		},
+		gridnav: {
+			autofocusInput: false,
+			handleCursorKeys: true
+		},
+		imagePath: "./css/img/",
+		selectMode: 2,
+		checkbox: true,
+		strings: {
+			loading: "Загрузка…",
+			loadError: "Ошибка закгрузки объектов каталога!"
+		},
+		source: []
+	})
 });		
 
 
@@ -103,7 +126,8 @@ function create_user() {
         function (data) {
             $("#dialog_div").html(data);
 	        // в поле "Контейнер" вставляем текущее значение переменной выбранного контейнера
-	        $("#cr_user_cont").attr("value",selected_node.split('__').reverse().join(" / "));
+	        $("#cr_user_cont_sh").attr("value",selected_node.replace(/..:/g, "" ).split('__').reverse().join(" / "));
+			$("#cr_user_cont").attr("value", selected_node);
 	        $("#cr_user_form").ajaxForm(function() {
 		        alert("Пользователь создан успешно!");
 	        });
