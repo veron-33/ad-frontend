@@ -26,3 +26,4 @@
 * Update Fancytree to last version
 * Update ColResizable script to last version
 * Enabled table-view in objects right panel
+* setting reasons of ldap-connection error 

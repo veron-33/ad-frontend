@@ -27,8 +27,8 @@ ul.fancytree-container {
   background-color: white;
   border: 1px dotted gray;
   overflow: auto;
-  min-height: 0%;
   position: relative;
+  min-height: 99%;
 }
 ul.fancytree-container ul {
   padding: 0 0 0 16px;
@@ -513,7 +513,7 @@ table.fancytree-ext-table tbody span.fancytree-node:hover {
   background: none;
 }
 table.fancytree-ext-table tbody span.fancytree-title:hover {
-  border: none;
+ /* border: none;*/
   background: inherit;
   background: transparent;
   background: none;
@@ -523,9 +523,9 @@ table.fancytree-ext-table tbody tr:hover {
   background-color: #E5F3FB;
   outline: 1px solid #70C0E7;
 }
-table.fancytree-ext-table tbody tr.fancytree-focused span.fancytree-title {
+/*table.fancytree-ext-table tbody tr.fancytree-focused span.fancytree-title {
   outline: 1px dotted black;
-}
+}*/
 table.fancytree-ext-table tbody tr.fancytree-active:hover,
 table.fancytree-ext-table tbody tr.fancytree-selected:hover {
   background-color: #CBE8F6;

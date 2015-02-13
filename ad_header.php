@@ -21,7 +21,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
     <!-- include column resize lib -->
     <script src="js/colResizable-1.5.min.js" type="text/javascript"></script>
     <!-- fancytree -->
-    <link type="text/css" href="fancytree/skin-win8/ui.fancytree.css" rel="stylesheet" />
+    <link type="text/css" href="fancytree/skin-win8-n/ui.fancytree.css" rel="stylesheet" />
     <script src="fancytree/jquery.fancytree-all.js" type="text/javascript"></script>
     <!-- /fancytree -->
     <script type="text/javascript" src="js/jscript.js"></script>
