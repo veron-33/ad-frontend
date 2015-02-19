@@ -2,29 +2,12 @@
 var start = new Date();
 
 
-// Блок функций для определения видимой области страницы и изменения св-в таблицы
-//###################################################################################
-function window_height() {
-	return document.documentElement.clientHeight;
-}
-function window_width() {
-	return document.documentElement.clientWidth;
-}
-
-$(window).resize(function () {
-	w = $("#main_table_tree");
-	w.height(window_height()-72);
-	w.width(window_width()-2);
-});
-//####################################################################################
-
-
-
 
 //функция построения дерева каталогов
 function build_tree() {
 	//задаем параметры дерева
 	var arr = {
+        scrollParent: $("#left_div"),
 		extensions: ["persist"],    // расширения куки
 		selectMode: 1,
 		generateIds: true,
@@ -89,13 +72,9 @@ $(function() {
 	selected_node = "Выберите контейнер в дереве каталогов";
     $("#dialog_div").dialog({autoOpen:false});
     build_tree();
-	$(window).resize();
-	$("#main_table_tree").colResizable({
-		liveDrag:true
-	});
 	// строим таблицу объектов контейнера
 	$("#tree_objects").fancytree({
-		scrollParent: $("#scrollParentob"),
+		scrollParent: $("#right_div"),
 		extensions: ["persist", "table", "gridnav"],    // расширения куки
 		table: {
 			indentation: 20,

@@ -30,3 +30,4 @@
 
 # 19.02.2015
 * UI-fix: a lot of style improvements
+* Redesign html-code architecture: use divs instead tables

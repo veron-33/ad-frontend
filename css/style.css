@@ -1,7 +1,9 @@
 @charset "windows-1251";
+html,
 body {
   margin: 0;
   padding: 0;
+  height: 100%;
   background: white;
   font-family: "Segoe UI", Helvetica, Verdana, sans-serif;
 }
@@ -14,50 +16,50 @@ a {
   width: 100%;
   position: fixed;
   top: 0;
+  z-index: 10;
 }
-.top_div .header-text {
+.header-text {
   float: left;
   vertical-align: text-top;
-  padding: 6px;
+  padding: 6px 6px 6px 45px;
   font-size: 26px;
   color: #ffffff !important;
+  background: url("logo.png") no-repeat;
 }
-.top_div .header-text2 {
+.header-table2 {
   padding: 5px;
   font-size: 14px;
   float: right;
   text-decoration: none;
   color: #003366;
 }
-.top_div .header-text2 a {
+.header-table2 a {
   color: #ff0000;
 }
-.top_div .header-text2 a :visited {
-  color: #ff0000;
-}
-.top_div .header-text2 a :hover {
-  border: dotted #FF0000 1px;
-  font-weight: bold;
-}
-.top_div .header-table {
+.header-table {
   margin: 0;
   padding: 0;
   float: right;
   font-size: 12px;
   text-align: right;
 }
-.top_div .header-table td:first-child {
+.header-table td:first-child {
   padding-right: 20px;
 }
-.top_div .header-table input {
+.header-table input {
   background: none;
   border: dotted 1px;
 }
-.top_div .header-table .header-submit {
+.header-table .header-submit {
   cursor: pointer;
   height: 43px;
   margin-left: 2px;
   border: 1px dotted #333 !important;
+}
+.middle_div {
+  position: fixed;
+  top: 72px;
+  height: calc(100% - 95px);
 }
 .error_div {
   display: none;
@@ -73,26 +75,26 @@ a {
   display: none;
   visibility: hidden;
 }
-#main_table_tree {
-  text-align: left;
-  top: 71px;
-  position: fixed;
-  float: left;
-  width: 100%;
-}
-#main_table_tree tr td {
-  border: 2px groove #dddddd;
+#left_div {
+  width: 25%;
   height: 100%;
-  padding: 0px;
+  float: left;
+  position: relative;
+  border-right: 3px double #bcc3ca;
 }
 #tree {
-  width: 20%;
+  height: 100%;
+}
+#right_div {
+  float: left;
+  width: calc(75% - 3px);
 }
 #tree_objects {
   width: 100%;
 }
 #tree_objects th {
   border: outset #878787 2px;
+  border-top: none;
   text-align: center;
   background: #f5f6f7;
 }
@@ -100,13 +102,16 @@ a {
   border: dotted #cacaca 1px !important;
 }
 .top_menu {
-  height: 26px;
+  padding: 0;
+  height: 25px;
   position: fixed;
   top: 45px;
   left: 0;
   width: 100%;
   background-color: #f5f6f7;
   border-top: 1px solid #0066ff;
+  border-bottom: 1px solid #0066ff;
+  z-index: 10;
 }
 #create_user_btn {
   background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cbd0d5));
@@ -114,9 +119,9 @@ a {
   background: -o-linear-gradient(top, #ffffff, #cbd0d5);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#cbd0d5, GradientType=0);
   cursor: pointer;
-  padding-top: 2px;
   text-align: center;
-  height: 26px;
+  padding-top: 4px;
+  margin: 0;
   width: 200px;
 }
 #create_user_btn:hover {
@@ -124,13 +129,26 @@ a {
   background: -moz-linear-gradient(top, #ffffff, #99ccff);
   background: -o-linear-gradient(top, #ffffff, #99ccff);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#99ccff, GradientType=0);
-  color: #000000;
 }
-#page_info {
+.bottom_div {
   background-color: #f5f6f7;
   font-size: 11px;
+  position: fixed;
+  height: 20px;
+  bottom: 0;
+  left: 0;
+  border-top: groove 2px #0066ff;
+  z-index: 10;
+  width: 100%;
+}
+.page_info {
+  text-align: right;
+  float: right;
+  width: 500px;
+  margin-right: 5px;
 }
 /* Fancytree improvments */
 ul.fancytree-container {
   border: none;
+  overflow: visible;
 }
