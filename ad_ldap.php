@@ -2,13 +2,15 @@
 session_start();
 error_reporting(2047);
 // защита от запуска этого файла отдельно
-if ($main_var != 'parol') exit; 
+if ($main_var != 'parol') {
+    exit;
+}
 
 //Засекаю время
 $S_TIME=time()+microtime();
 
 // Включаем библиотеку adLDAP
-include (dirname(__FILE__) . "/adldap/adLDAP.php");     
+include (dirname(__FILE__) . "/adldap/adLDAP.php");
 
 // Включаем файл конфигурации
 include ("ad_config.php");
@@ -27,4 +29,3 @@ include ("ad_body.php");
 
 // Включаем файл подвала
 include ("ad_footer.php");
-?>

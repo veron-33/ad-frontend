@@ -1,0 +1,158 @@
+@charset "windows-1251";
+
+@main_color:#39F;
+@dark_main_color: darken(@main_color, 40%);
+@ldark_main_color: @main_color - #330;
+@panel_color:#f5f6f7;
+
+.set-hor-gradient (@color, @pc:15%) {
+  background: -webkit-gradient(linear, left top, left bottom, from(lighten(@color, @pc)), to(darken(@color, @pc)));
+  background: -moz-linear-gradient(top,  lighten(@color, @pc),  darken(@color, @pc));
+  background: -o-linear-gradient(top,  lighten(@color, @pc),  darken(@color, @pc));
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=lighten(@color, @pc),
+  endColorstr=darken(@color, @pc),GradientType=0);;
+}
+
+body {
+  margin:0;
+  padding:0;
+  background: white;
+  font-family:"Segoe UI", Helvetica, Verdana, sans-serif;
+}
+
+a {
+  text-decoration:none;
+}
+
+.top_div {
+  @top-height: 45px;
+  background:@main_color;
+  height:@top-height;
+  width:100%;
+  position:fixed;
+  top:0;
+
+  .header-text {
+    float: left;
+    vertical-align: text-top;
+    padding:6px;
+    font-size:26px;
+    color:#ffffff !important;
+  }
+  .header-text2 {
+    padding:5px;
+    font-size:14px;
+    float:right;
+    text-decoration:none;
+    color:@dark_main_color;
+    @exit-text-col:#FF0000;
+    a {
+      color: @exit-text-col;
+      :visited {
+        color: @exit-text-col;
+      }
+      :hover {
+        border: dotted #FF0000 1px;
+        font-weight: bold;
+      }
+    }
+  }
+  .header-table {
+    margin:0;
+    padding: 0;
+    float:right;
+    font-size:12px;
+    text-align:right;
+    td:first-child {
+      padding-right: 20px;
+    }
+    input {
+      background:none;
+      border:dotted 1px;
+    }
+    .header-submit {
+      cursor:pointer;
+      height: @top-height - 2px;
+      margin-left:2px;
+      border:1px dotted #333 !important;
+    }
+  }
+}
+
+
+.error_div {
+  display:none;
+  border:dotted #F00 1px;
+  background:#FFF;
+  font-size:20px;
+  color:#F00;
+  width:95%;
+  padding:5px;
+  margin: 70px 10px 10px 10px;
+}
+.hidden {
+  display:none;
+  visibility:hidden;
+}
+
+#main_table_tree {
+  text-align:left;
+  top:71px;
+  position:fixed;
+  float:left;
+  width:100%;
+}
+#main_table_tree tr td {
+  border:2px groove #dddddd;
+  height: 100%;
+  padding: 0px;
+}
+
+#tree {
+  width: 20%;
+}
+
+#tree_objects {
+  width: 100%;
+}
+
+#tree_objects th {
+  border: outset #878787 2px;
+  text-align: center;
+  background: @panel_color;
+}
+
+#tree_objects td {
+  border: dotted #cacaca 1px !important;
+}
+
+.top_menu {
+  height:26px;
+  position:fixed;
+  top:45px;
+  left:0;
+  width:100%;
+  background-color: @panel_color;
+  border-top:1px solid @ldark_main_color;
+}
+#create_user_btn {
+  .set-hor-gradient(@panel_color);
+  cursor:pointer;
+  padding-top:2px;
+  text-align: center;
+  height:26px;
+  width:200px;
+}
+#create_user_btn:hover {
+  .set-hor-gradient(lighten(@main_color, 30%), 10%);
+  color: #000000;
+}
+#page_info {
+  background-color:@panel_color;
+  font-size: 11px;
+}
+
+/* Fancytree improvments */
+ul.fancytree-container {
+  border: none;
+}

@@ -1,18 +1,18 @@
-﻿// Засекаю время
+// Засекаю время
 var start = new Date();
 
 
 // Блок функций для определения видимой области страницы и изменения св-в таблицы
 //###################################################################################
 function window_height() {
-	return document.documentElement.clientHeight
+	return document.documentElement.clientHeight;
 }
 function window_width() {
-	return document.documentElement.clientWidth
+	return document.documentElement.clientWidth;
 }
 
 $(window).resize(function () {
-	w=$("#main_table_tree");
+	w = $("#main_table_tree");
 	w.height(window_height()-72);
 	w.width(window_width()-2);
 });
@@ -22,7 +22,7 @@ $(window).resize(function () {
 
 
 //функция построения дерева каталогов
-function build_tree () {
+function build_tree() {
 	//задаем параметры дерева
 	var arr = {
 		extensions: ["persist"],    // расширения куки
@@ -49,11 +49,12 @@ function build_tree () {
 			data: {
 				act: "get_tree",
 				type: "folders",
-				pNode: "NULL" }
+				pNode: "NULL"
+            }
 
 		},
 		lazyLoad: function (e, data) {
-			data.result = $.ajax ({
+			data.result = $.ajax({
 				url:"ajax/ad_ajax_tree.php",
 				dataType:"json",
 				data: {
@@ -84,7 +85,7 @@ function build_tree () {
 	$("#tree").fancytree(arr);
 }
 
-$(function(){
+$(function() {
 	selected_node = "Выберите контейнер в дереве каталогов";
     $("#dialog_div").dialog({autoOpen:false});
     build_tree();
@@ -160,5 +161,5 @@ function create_user() {
 
 
 function check_cr_user_form() {
- return false;
+    return false;
 }

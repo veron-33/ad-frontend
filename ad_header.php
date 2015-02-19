@@ -10,8 +10,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon" />
     <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" />
-    <link type="text/css" href="css/style.css" rel="stylesheet" />
+    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet" /
     <!-- include jquery libs -->
 
     <script src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
@@ -24,6 +23,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
     <link type="text/css" href="fancytree/skin-win8-n/ui.fancytree.css" rel="stylesheet" />
     <script src="fancytree/jquery.fancytree-all.js" type="text/javascript"></script>
     <!-- /fancytree -->
+    <link type="text/css" href="css/style.css" rel="stylesheet" />
     <script type="text/javascript" src="js/jscript.js"></script>
     <title>AD FrontEnd on <?php echo "$site_name" ?></title>
 </head>
@@ -35,15 +35,14 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
                     <a href="index.php"><img src="css/logo.png" alt="logo" height="32px"/></a>
                 </td>
                 <td class="header-text">
-                    AD FrontEnd: <?php echo $ad_host; ?></span>
+                    AD FrontEnd: <?php echo $ad_host; ?>
                 </td>
                 <td>
                     <?php if ($_SESSION['admin'] !== true) { ?>
                     <form name="autorization" method="post" action="index.php">
                         <table class="header-table" border="0" cellpadding="0" cellspacing="0">
                             <tr>
-                              <td align="left">DC=<?php echo $ad_host; ?></td>
-                              <td>Логин:&nbsp;</td>
+                              <td align="left">DC=<?php echo $ad_host; ?></td><td>Логин:&nbsp;</td>
                               <td><input type="text" name="username" tabindex="1"  /></td>
                               <td rowspan="2"><input type="submit" value="Вход" class="header-submit" tabindex="3" /></td>
                             </tr>
@@ -64,7 +63,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
                             <td colspan="2">Вход выполнен:&nbsp;<?php echo  $_SESSION['cur_username'] ?></td>
                         </tr>
                         <tr>
-                            <td class="exit_text" align="right"><a href="?exit">Выход</a></td>
+                            <td align="right"><a href="?exit">Выход</a></td>
                         </tr>
                     </table>
                     <?php } ?>

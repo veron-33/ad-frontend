@@ -6,7 +6,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 
 // Пытаемся соединиться с сервером AD
 try {
-	  $adldap = new adLDAP($ad_conf);
+	$adldap = new adLDAP($ad_conf);
 }
 catch (adLDAPException $e) {
 	  echo $e; 
@@ -15,8 +15,8 @@ catch (adLDAPException $e) {
 
 // Функция проверки авторизации
 function autorization($usern, $userp) {
-  global $error_text, $fail_time, $adldap;
-  if (!isset($_SESSION['login_failed'])) {
+	global $error_text, $fail_time, $adldap;
+	if (!isset($_SESSION['login_failed'])) {
 	  // авторизуемся
 	  $_SESSION['admin'] =($adldap->authenticate($usern, $userp))?true:false;
 	  if ($_SESSION['admin']) {

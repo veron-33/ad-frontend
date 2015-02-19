@@ -27,3 +27,6 @@
 * Update ColResizable script to last version
 * Enabled table-view in objects right panel
 * setting reasons of ldap-connection error 
+
+# 19.02.2015
+* UI-fix: a lot of style improvements
