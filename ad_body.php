@@ -14,17 +14,17 @@ if ($_SESSION['admin'] === true) {
         <div id="right_div" style="height: 100%; overflow: auto">
             <table id="tree_objects">
                 <colgroup>
-                    <col style="width:26px; max-widt"></col>
-                    <col width="800px"></col>
-                    <col width="100px"></col>
-                    <col width="100px"></col>
+                    <col style="width:26px; max-width: 26px;">
+                    <col width="800px">
+                    <col width="100px">
+                    <col width="100px">
                 </colgroup>
                 <thead>
                 <tr>
-                    <th></th>
-                    <th>Имя</th>
-                    <th>Параметр1</th>
-                    <th>Параметр2</th>
+                    <th style="width: 26px; max-width: 26px;"></th>
+                    <th width="800px">Имя</th>
+                    <th width="100px">Параметр1</th>
+                    <th width="100px">Параметр2</th>
                 </tr>
                 </thead>
                 <tbody>

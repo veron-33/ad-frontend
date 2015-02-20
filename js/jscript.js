@@ -72,9 +72,13 @@ $(function() {
 	selected_node = "Выберите контейнер в дереве каталогов";
     $("#dialog_div").dialog({autoOpen:false});
     build_tree();
+    $("#left_div").resizable({
+        handles:"e"
+    });
+    //$("#tree_objects").stickyTableHeaders();
 	// строим таблицу объектов контейнера
 	$("#tree_objects").fancytree({
-		scrollParent: $("#right_div"),
+		//scrollParent: $("#right_div"),
 		extensions: ["persist", "table", "gridnav"],    // расширения куки
 		table: {
 			indentation: 20,

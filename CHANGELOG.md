@@ -31,3 +31,7 @@
 # 19.02.2015
 * UI-fix: a lot of style improvements
 * Redesign html-code architecture: use divs instead tables
+
+# 20.02.2015
+* UI: added column resize func
+* Minor UI-fixes

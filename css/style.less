@@ -77,8 +77,9 @@ a {
 
 .middle_div {
   position: fixed;
-  top: 72px;
-  height: ~"calc(100% - 95px)" ;
+  top: 71px;
+  height: ~"calc(100% - 91px)" ;
+  width: 100%;
 }
 
 
@@ -103,29 +104,40 @@ a {
   height: 100%;
   float: left;
   position: relative;
-  border-right: 3px double darken(@panel_color, 20%);
+ /*border-right: 3px double darken(@panel_color, 20%);*/
+}
+
+#left_div .ui-resizable-e {
+  cursor: col-resize;
+  width: 3px;
+  border-right: 1px solid darken(@panel_color, 20%);
+  border-left: 1px solid darken(@panel_color, 20%);
+  background: @panel_color;
+  right: 0px;
 }
 
 #tree {
   height: 100%;
+  width: ~"calc(100% - 6px)";
 }
 
 #right_div {
-  float: left;
-  width: ~"calc(75% - 3px)";
+  position: relative;
+  top: 0;
+  right: 0;
 }
 
 #tree_objects {
   width: 100%;
 }
 
+
 #tree_objects th {
-  border: outset #878787 2px;
+  border: outset darken(@panel_color, 30%) 2px;
   border-top: none;
   text-align: center;
   background: @panel_color;
 }
-
 
 #tree_objects td {
   border: dotted #cacaca 1px !important;
@@ -140,7 +152,7 @@ a {
   width:100%;
   background-color: @panel_color;
   border-top:1px solid @ldark_main_color;
-  border-bottom:1px solid @ldark_main_color;
+  border-bottom:1px solid darken(@panel_color, 30%);
   z-index: 10;
 }
 #create_user_btn {
@@ -161,15 +173,16 @@ a {
   height: 20px;
   bottom: 0;
   left: 0;
-  border-top: groove 2px @ldark_main_color ;
-  z-index: 10;
+  border-top: solid 1px darken(@panel_color, 10%) ;
+  z-index: 0;
   width: 100%;
 }
 .page_info {
   text-align: right;
+  margin: 1px 1px 0;
   float: right;
-  width: 500px;
-  margin-right: 5px;
+  width: 100%;
+  padding-right: 4px;
 }
 
 /* Fancytree improvments */

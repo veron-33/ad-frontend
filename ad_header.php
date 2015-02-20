@@ -15,10 +15,11 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
         /
         <!-- include jquery libs -->
 
-        <script src="//code.jquery.com/jquery-1.11.1.min.js" type="text/javascript"></script>
+        <script src="js/jquery.js" type="text/javascript"></script>
         <script type="text/javascript" src="./js/jquery.form.js"></script>
-        <script src="//code.jquery.com/ui/1.11.2/jquery-ui.min.js" type="text/javascript"></script>
+        <script src="js/jquery-ui.min.js" type="text/javascript"></script>
         <script type="text/javascript" src="js/jquery.cookie.js"></script>
+        <!--script type="text/javascript" src="js/jquery.stickytableheaders.js"></script-->
 
         <!-- fancytree -->
         <link type="text/css" href="fancytree/skin-win8-n/ui.fancytree.css" rel="stylesheet"/>
