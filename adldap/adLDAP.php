@@ -174,6 +174,15 @@ class adLDAP {
     */
 	protected $ldapConnection;
 	protected $ldapBind;
+
+
+    public function getLockoutDuration(){
+        $sr = ldap_search($this->getLdapConnection(),$this->getBaseDn(),"(objectClass=domain)");
+        $entry = ldap_first_entry($this->getLdapConnection(),$sr);
+        $result=ldap_get_values($this->getLdapConnection(),$entry,"lockoutduration");
+        return $result[0];
+    }
+
     
     /**
     * Get the active LDAP Connection
@@ -801,7 +810,7 @@ class adLDAP {
         // If you wish to remove an attribute you should set it to a space
         // TO DO: Adapt user_modify to use ldap_mod_delete to remove a NULL attribute
         $mod=array();
-        
+
         // Check every attribute to see if it contains 8bit characters and then UTF8 encode them
         array_walk($attributes, array($this, 'encode8bit'));
 
@@ -858,6 +867,10 @@ class adLDAP {
         // This schema is designed for contacts
         if ($attributes["exchange_hidefromlists"]){ $mod["msExchHideFromAddressLists"][0]=$attributes["exchange_hidefromlists"]; }
         if ($attributes["contact_email"]){ $mod["targetAddress"][0]=$attributes["contact_email"]; }
+
+
+        if (isset($attributes["lockouttime"])){ $mod["lockouttime"][0]=$attributes["lockouttime"]; }
+
         
         //echo ("<pre>"); print_r($mod);
         /*

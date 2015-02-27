@@ -10,6 +10,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 
 // !!! Введите FQDN контролера домена:  !!!
 $ad_host = "verondc.veronet.local";
+//$ad_host = "cyclop.s-tech.ru";
 
 // выделяем имя домена
 $ad_domain = substr(strstr($ad_host,"."),1);
@@ -23,7 +24,7 @@ $ad_conf = array (
   'use_ssl'=>true,
   'domain_controllers'=>array($ad_host));
  // Указываем количество попыток при неудачном вводе пароля
-$fail_time = 50;
+$fail_time = 10;
 //####################################################################################
 
 

@@ -54,18 +54,14 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
         <?php
         } else {
             ?>
-            <table class="header-table2" border="0" cellpadding="0" cellspacing="0">
-                <tr>
-                    <td colspan="2">Вход выполнен:&nbsp;<?php echo $_SESSION['cur_username'] ?></td>
-                </tr>
-                <tr>
-                    <td align="right"><a href="?exit">Выход</a></td>
-                </tr>
-            </table>
+            <div title="Создать нового пользователя" onclick="create_user()" class="top_btn">
+                +
+            </div>
+            <div title="Найти заблокированых пользователей" onclick="get_locked()" class="top_btn">
+                FL
+            </div>
+            <div title="Выход" class="adm_panel" onclick="exit()">
+                <?php echo $_SESSION['cur_username'] ?>
+            </div>
         <?php } ?>
     </div>
-<?php if ($_SESSION['admin']) { ?>
-    <div class="top_menu">
-        <div id="create_user_btn" onclick="create_user()">Создать пользователя</div>
-    </div>
-<?php } ?>

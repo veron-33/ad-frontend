@@ -4,6 +4,7 @@
 */
 if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельнo
 
+
 // Пытаемся соединиться с сервером AD
 try {
 	$adldap = new adLDAP($ad_conf);
@@ -117,31 +118,40 @@ function build_tree($foldername, $ob_type ,$check_child = false) {
 		}
 		// key = <CN or OU>:<node>__<CN or OU>:<parent1>__<...>...
 		$result[$i]["key"]=implode("__",$nf);
-	}        
+	}
 	$result =  json_encode($result);    
 	return $result;
 }
 
 
-
-
-// Функция работающая с БД
-function sql ($sql) {
-  global $error_text, $connected, $db_host, $db_user, $db_pass, $db_name;
-  // Подключаемся к БД, если еще не подключены
-  if (!isset($connected)) {
-	  $connected = mysql_connect($db_host, $db_user, $db_pass);
-	  mysql_select_db($db_name);	
-	  //mysql_query("SET NAMES cp1251");
-  }
-  $query = mysql_query($sql);
-  if (mysql_errno() != 0) {
-	  $error_text = "Ошибка №".mysql_errno()." при работе с БД: ".mysql_error();
-  }
-  return $query;
+function get_locked_users() {
+    global $adldap;
+    $searchAttr = array("lockouttime", "1", ">=");
+    $getFields = array("lockouttime");
+    $lusers = $adldap->user()->ext_find($searchAttr, $getFields);
+    if (count($lusers)>0) {
+        $duration = $adldap->getLockoutDuration();
+        $s_duration = $duration/-10000000;
+        $curr_time = time();
+        $res_arr = array();
+        foreach ($lusers as $user) {
+            $locktime = round($user["lockouttime"] / (10 * 1000 * 1000)) - 11644473600;
+            if ($locktime+$s_duration > $curr_time) {
+                $user["lockouttime"] = date("H:i:s", $locktime);
+                $res_arr[] = $user;
+            }
+        }
+        if (count($res_arr)>0) {
+            return $res_arr;
+        }
+        else return false;
+    }
+    else {
+        return false;
+    }
 }
 
-
-
-
-?>
+function unlock_user($user) {
+    global $adldap;
+    return $adldap->user()->modify($user, array("lockouttime" => '0'));
+}

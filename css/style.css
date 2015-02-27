@@ -21,20 +21,43 @@ a {
 .header-text {
   float: left;
   vertical-align: text-top;
-  padding: 6px 6px 6px 45px;
+  padding: 6px 6px 6px 35px;
   font-size: 26px;
+  font-weight: lighter;
   color: #ffffff !important;
-  background: url("logo.png") no-repeat;
+  background: url("img/logo.png") no-repeat left center;
+  margin: 0 50px 0 10px;
 }
-.header-table2 {
-  padding: 5px;
-  font-size: 14px;
+.top_btn {
+  background: #198cff;
+  font-size: 24pt;
+  color: #ffffff;
+  text-align: center;
+  width: 55px;
+  height: 45px;
+  position: relative;
+  float: left;
+  margin-right: 2px;
+  vertical-align: middle;
+}
+.adm_panel {
+  display: table;
+  position: absolute;
+  background: #198cff;
+  vertical-align: middle;
+  height: 45px;
+  line-height: 45px;
+  right: 0;
+  text-outline: 0;
+  color: #ffffff;
+  padding: 0 10px;
   float: right;
-  text-decoration: none;
-  color: #003366;
 }
-.header-table2 a {
-  color: #ff0000;
+.top_btn:hover,
+.adm_panel:hover {
+  background: #007fff;
+  cursor: pointer;
+  color: #cce5ff;
 }
 .header-table {
   margin: 0;
@@ -58,9 +81,10 @@ a {
 }
 .middle_div {
   position: fixed;
-  top: 71px;
-  height: calc(100% - 91px);
+  top: 45px;
+  height: calc(100% - 67px);
   width: 100%;
+  background: #f5f6f7;
 }
 .error_div {
   display: none;
@@ -81,7 +105,8 @@ a {
   height: 100%;
   float: left;
   position: relative;
-  /*border-right: 3px double darken(@panel_color, 20%);*/
+  background: #ffffff;
+  margin: 2px 0 0 2px;
 }
 #left_div .ui-resizable-e {
   cursor: col-resize;
@@ -92,13 +117,19 @@ a {
   right: 0px;
 }
 #tree {
-  height: 100%;
+  height: calc(100% - 2px);
   width: calc(100% - 6px);
+  border: 1px solid #bcc3ca !important;
+  border-right: none;
 }
 #right_div {
   position: relative;
   top: 0;
   right: 0;
+  background: #ffffff;
+  margin: 2px 2px 0 0;
+  border: 1px solid #bcc3ca;
+  border-left: none;
 }
 #tree_objects {
   width: 100%;
@@ -111,35 +142,6 @@ a {
 }
 #tree_objects td {
   border: dotted #cacaca 1px !important;
-}
-.top_menu {
-  padding: 0;
-  height: 25px;
-  position: fixed;
-  top: 45px;
-  left: 0;
-  width: 100%;
-  background-color: #f5f6f7;
-  border-top: 1px solid #0066ff;
-  border-bottom: 1px solid #a0aab3;
-  z-index: 10;
-}
-#create_user_btn {
-  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#cbd0d5));
-  background: -moz-linear-gradient(top, #ffffff, #cbd0d5);
-  background: -o-linear-gradient(top, #ffffff, #cbd0d5);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#cbd0d5, GradientType=0);
-  cursor: pointer;
-  text-align: center;
-  padding-top: 4px;
-  margin: 0;
-  width: 200px;
-}
-#create_user_btn:hover {
-  background: -webkit-gradient(linear, left top, left bottom, from(#ffffff), to(#99ccff));
-  background: -moz-linear-gradient(top, #ffffff, #99ccff);
-  background: -o-linear-gradient(top, #ffffff, #99ccff);
-  filter: progid:DXImageTransform.Microsoft.gradient(startColorstr=#ffffff, endColorstr=#99ccff, GradientType=0);
 }
 .bottom_div {
   background-color: #f5f6f7;
@@ -158,6 +160,24 @@ a {
   float: right;
   width: 100%;
   padding-right: 4px;
+}
+.ui-dialog {
+  z-index: 100;
+}
+#locked_list {
+  width: 100%;
+}
+#locked_list th {
+  font-size: 10pt;
+}
+#locked_list th:first-child {
+  width: 25px;
+}
+#locked_list th:last-child {
+  width: 90px;
+}
+#locked_list tr td:last-child {
+  text-align: center;
 }
 /* Fancytree improvments */
 ul.fancytree-container {

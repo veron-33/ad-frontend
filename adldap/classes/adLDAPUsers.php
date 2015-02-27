@@ -402,15 +402,17 @@ class adLDAPUsers {
 
         // Find the dn of the user
         $userDn = $this->dn($username, $isGUID);
-        if ($userDn === false) { 
+        if ($userDn === false) {
             return false; 
         }
         
         // Translate the update to the LDAP schema                
         $mod = $this->adldap->adldap_schema($attributes);
+        if (!$mod) echo "1";
         
         // Check to see if this is an enabled status update
-        if (!$mod && !array_key_exists("enabled", $attributes)){ 
+        if (!$mod && !array_key_exists("enabled", $attributes)){
+            echo "2";
             return false; 
         }
         
@@ -427,7 +429,7 @@ class adLDAPUsers {
 
         // Do the update
         $result = @ldap_modify($this->adldap->getLdapConnection(), $userDn, $mod);
-        if ($result == false) { 
+        if ($result == false) {
             return false; 
         }
         
@@ -609,23 +611,22 @@ class adLDAPUsers {
     * @param bool $sorted Sort the user accounts
     * @return array
     */
-    public function find($includeDescription = false, $searchField = false, $searchFilter = false, $sorted = true){
+    public function find($includeDescription = false, $searchField = false, $searchFilter = false, $sorted = true, $searchOperator = "="){
         if (!$this->adldap->getLdapBind()){ return false; }
           
         // Perform the search and grab all their details
         $searchParams = "";
         if ($searchField) {
-            $searchParams = "(" . $searchField . "=" . $searchFilter . ")";
+            $searchParams = "(" . $searchField . $searchOperator . $searchFilter . ")";
         }                           
         $filter = "(&(objectClass=user)(samaccounttype=" . adLDAP::ADLDAP_NORMAL_ACCOUNT .")(objectCategory=person)" . $searchParams . ")";
         $fields = array("samaccountname","displayname");
         $sr = ldap_search($this->adldap->getLdapConnection(), $this->adldap->getBaseDn(), $filter, $fields);
         $entries = ldap_get_entries($this->adldap->getLdapConnection(), $sr);
-
         $usersArray = array();
         for ($i=0; $i < $entries["count"]; $i++) {
             if ($includeDescription && strlen($entries[$i]["displayname"][0]) > 0) {
-                $usersArray[$entries[$i]["samaccountname"][0]] = $entries[$i]["displayname"][0];
+                $usersArray[$i][$entries["samaccountname"][0]] = $entries[$i]["displayname"][0];
             }
             else if ($includeDescription) {
                 $usersArray[$entries[$i]["samaccountname"][0]] = $entries[$i]["samaccountname"][0];
@@ -637,6 +638,48 @@ class adLDAPUsers {
         if ($sorted){ 
           asort($usersArray); 
         }
+        return ($usersArray);
+    }
+
+    /**
+     * Return a list of all users in AD that have a specific value in a field
+     *
+     * Extended find!
+     *
+     * @param array $searchAttr Array of searched attributes ["attr_name", "attr_value", "operator"]
+     * @param array $getFields Array of fields to return. (["dn", "samaccountname", other])
+     * @param bool $sorted Sort the user accounts
+     * @return array
+     */
+    public function ext_find($searchAttr, $getFields, $sorted = true ){
+        if (!$this->adldap->getLdapBind()){ return false; }
+        // Perform the search and grab all their details
+        $searchParams = "";
+        if ($searchAttr) {
+            $searchParams = "(" . $searchAttr[0] . $searchAttr[2] . $searchAttr[1] . ")";
+        }
+        $filter = "(&(objectClass=user)(samaccounttype=" . adLDAP::ADLDAP_NORMAL_ACCOUNT .")(objectCategory=person)" . $searchParams . ")";
+        $fields = array("samaccountname", "displayname");
+        if ($getFields) {
+            $fields = array_unique(array_merge($fields, array_change_key_case($getFields)));
+        }
+        $sr = ldap_search($this->adldap->getLdapConnection(), $this->adldap->getBaseDn(), $filter, $fields);
+        $entries = ldap_get_entries($this->adldap->getLdapConnection(), $sr);
+
+        //print_r($entries);
+        //exit;
+        $usersArray = array();
+
+        for ($i=0; $i < $entries["count"]; $i++) {
+            for ($j=0; $j < $entries[$i]["count"]; $j++) {
+                $usersArray[$i][$entries[$i][$j]] = $entries[$i][$entries[$i][$j]][0];
+            }
+        }
+        if ($sorted){
+            asort($usersArray);
+        }
+       // print_r($usersArray);
+        //exit;
         return ($usersArray);
     }
     

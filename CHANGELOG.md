@@ -35,3 +35,14 @@
 # 20.02.2015
 * UI: added column resize func
 * Minor UI-fixes
+
+
+# 25.02.2015
+* UI: restyle header
+* Other UI-fixes
+
+# 26.02.2015
+* Added find locked users (not disabled!) function 
+
+# 27.02.2015
+* Added Unlock users function 

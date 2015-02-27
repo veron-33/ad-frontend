@@ -38,22 +38,47 @@ a {
 .header-text {
   float: left;
   vertical-align: text-top;
-  padding:6px 6px 6px 45px;
+  padding:6px 6px 6px 35px;
   font-size:26px;
+  font-weight: lighter;
   color:#ffffff !important;
-  background: url("logo.png") no-repeat ;
+  background: url("./img/logo.png") no-repeat left center;
+  margin:0 50px 0 10px;
 }
-.header-table2 {
-  padding:5px;
-  font-size:14px;
-  float:right;
-  text-decoration:none;
-  color:@dark_main_color;
-  @exit-text-col:#FF0000;
-  a {
-    color: @exit-text-col;
-  }
+.top_btn {
+  background: darken(@main_color, 5%);
+  font-size: 24pt;
+  color: #ffffff;
+  text-align: center;
+  width: 55px;
+  height: @topdiv-height;
+  position: relative;
+  float: left;
+  margin-right: 2px;
+  vertical-align: middle;
 }
+
+
+.adm_panel {
+  display: table;
+  position: absolute;
+  background: darken(@main_color, 5%);
+  vertical-align: middle;
+  height: @topdiv-height;
+  line-height: @topdiv-height;
+  right: 0;
+  text-outline: 0;
+  color: #ffffff;
+  padding: 0 10px;
+  float: right;
+}
+
+.top_btn:hover, .adm_panel:hover {
+  background: darken(@main_color, 10px);
+  cursor: pointer;
+  color: lighten(@main_color,30%);
+}
+
 .header-table {
   margin:0;
   padding: 0;
@@ -77,9 +102,10 @@ a {
 
 .middle_div {
   position: fixed;
-  top: 71px;
-  height: ~"calc(100% - 91px)" ;
+  top: @topdiv-height;
+  height: ~"calc(100% - 67px)" ;
   width: 100%;
+  background: @panel_color;
 }
 
 
@@ -104,7 +130,9 @@ a {
   height: 100%;
   float: left;
   position: relative;
- /*border-right: 3px double darken(@panel_color, 20%);*/
+  background: #ffffff;
+  margin: 2px 0 0 2px;
+
 }
 
 #left_div .ui-resizable-e {
@@ -117,14 +145,20 @@ a {
 }
 
 #tree {
-  height: 100%;
+  height: ~"calc(100% - 2px)";
   width: ~"calc(100% - 6px)";
+  border: 1px solid darken(@panel_color, 20%) !important;
+  border-right: none;
 }
 
 #right_div {
   position: relative;
   top: 0;
   right: 0;
+  background: #ffffff;
+  margin: 2px 2px 0 0;
+  border: 1px solid darken(@panel_color, 20%);
+  border-left: none;
 }
 
 #tree_objects {
@@ -143,29 +177,7 @@ a {
   border: dotted #cacaca 1px !important;
 }
 
-.top_menu {
-  padding: 0;
-  height:25px;
-  position:fixed;
-  top:@topdiv-height;
-  left:0;
-  width:100%;
-  background-color: @panel_color;
-  border-top:1px solid @ldark_main_color;
-  border-bottom:1px solid darken(@panel_color, 30%);
-  z-index: 10;
-}
-#create_user_btn {
-  .set-hor-gradient(@panel_color);
-  cursor:pointer;
-  text-align: center;
-  padding-top: 4px;
-  margin: 0;
-  width:200px;
-}
-#create_user_btn:hover {
-  .set-hor-gradient(lighten(@main_color, 30%), 10%);
-}
+
 .bottom_div {
   background-color:@panel_color;
   font-size: 11px;
@@ -183,6 +195,26 @@ a {
   float: right;
   width: 100%;
   padding-right: 4px;
+}
+
+.ui-dialog {
+  z-index: 100;
+}
+
+#locked_list {
+  width: 100%;
+  th {
+    font-size: 10pt;
+  }
+  th:first-child {
+    width: 25px;
+  }
+  th:last-child {
+    width: 90px;
+  }
+  tr td:last-child {
+    text-align: center;
+  }
 }
 
 /* Fancytree improvments */

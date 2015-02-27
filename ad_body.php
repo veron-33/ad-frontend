@@ -8,8 +8,8 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 if ($_SESSION['admin'] === true) {
     ?>
     <div class="middle_div">
-        <div id="left_div" style="height: 100%;overflow: auto">
-            <div id="tree"></div>
+        <div id="left_div">
+            <div id="tree" style="height: 100%;overflow: auto"></div>
         </div>
         <div id="right_div" style="height: 100%; overflow: auto">
             <table id="tree_objects">

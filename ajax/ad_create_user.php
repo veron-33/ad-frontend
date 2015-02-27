@@ -1,5 +1,6 @@
 <?php
 if (isset($_GET['act'])) {
+    exit;
 	session_start();
 	if (($_GET['act'] == "cr_user")
 		and (isset($_GET["cr_user_surn"]))
