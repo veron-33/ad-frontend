@@ -1,9 +1,54 @@
 ﻿<?php
 /*
-Файл тела страницы
+Файл шапки страницы
 */
-if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельнo
+if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельно
+?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
+    <link rel="icon" href="favicon.ico" type="image/x-icon"/>
+    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet"
+    /
+    <!-- include jquery libs -->
 
+    <script src="js/jquery.js" type="text/javascript"></script>
+    <script type="text/javascript" src="./js/jquery.form.js"></script>
+    <script src="js/jquery-ui.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jquery.cookie.js"></script>
+    <!--script type="text/javascript" src="js/jquery.stickytableheaders.js"></script-->
+
+    <!-- fancytree -->
+    <link type="text/css" href="fancytree/skin-win8-n/ui.fancytree.css" rel="stylesheet"/>
+    <script src="fancytree/jquery.fancytree-all.js" type="text/javascript"></script>
+    <!-- /fancytree -->
+    <link type="text/css" href="css/style.css" rel="stylesheet"/>
+    <script type="text/javascript" src="js/jscript.js"></script>
+    <title>AD FrontEnd on <?php echo "$site_name" ?></title>
+</head>
+<body>
+<div class="top_div">
+    <div class="header-text">
+        Web-AD
+    </div>
+    <?php if ($_SESSION['admin'] == true) { ?>
+        <div title="Создать нового пользователя" onclick="create_user()" class="top_btn">
+            +
+        </div>
+        <div title="Найти заблокированых пользователей" onclick="get_locked()" class="top_btn">
+            FL
+        </div>
+        <div title="Выход" class="adm_panel" onclick="exit()">
+            <?php echo $_SESSION['cur_username'] ?>
+        </div>
+    <?php } ?>
+</div>
+
+
+<?php
 // Проверяем, произведен ли вход в систему
 if ($_SESSION['admin'] === true) {
     ?>
@@ -44,11 +89,31 @@ if ($_SESSION['admin'] === true) {
         </div>
     </div>
 <?php
-} else {
+} else {?>
+    <div class="auth_div">
+        <form action="index.php" method="post" name="authorization">
+            <div class="inputu">
+                <input type="text" name="login" tabindex="1"/>
+            </div>
+            <div class="inputp">
+                <input type="password" name="pass" tabindex="2"/>
+                <input class="auth_submit" type="submit" value="→" tabindex="3"/>
+            </div>
+                <input type="hidden" name="act" value="auth"/>
+        </form>
+    </div>
+
+<?php }
+
+if (isset($error_text) && $error_text != "") {
     ?>
-    <!-- Область для вывода сообщения об ошибке -->
-    <div class="error_div" id="error_div">Для продолжения работы Вам необходимо авторизоваться (без DN)!</div>
-    <script type="text/javascript">
-        $('#error_div').style.display = 'block';
-    </script>
-<?php } ?>
+    <div class="error_div"><?php echo  $error_text; ?></div>
+<?php
+}
+?>
+<div id="dialog_div"></div>
+<script type="text/javascript" >
+    var now = new Date();
+    $('#client_time').html((now - start)/1000);
+</script>
+</body></html>

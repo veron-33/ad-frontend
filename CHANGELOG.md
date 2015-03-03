@@ -46,3 +46,7 @@
 
 # 27.02.2015
 * Added Unlock users function 
+
+# 03.03.2015
+* Restructure file-includes
+* UI: new authorization form

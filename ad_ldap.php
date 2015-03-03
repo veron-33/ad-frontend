@@ -21,11 +21,6 @@ include ("ad_functions.php");
 // Включаем файл с обработкой входящих данных
 include ("ad_inputs.php");
 
-// Включаем файл шапки
-include ("ad_header.php");
-
 // Включаем файл основного "тела"
 include ("ad_body.php");
 
-// Включаем файл подвала
-include ("ad_footer.php");

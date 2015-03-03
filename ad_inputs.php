@@ -19,9 +19,9 @@ if (isset($_GET['exit'])) {
 if (isset($_POST['act']) || isset($_GET['act'])) {
 	
 	//Проверка авторизации
-	if ($_POST['act'] == "autorization") {
-		$input_username = trim(addslashes($_POST['username']));
-		$input_userpass = trim(addslashes($_POST['userpass']));
+	if ($_POST['act'] == "auth") {
+		$input_username = trim(addslashes($_POST['login']));
+		$input_userpass = trim(addslashes($_POST['pass']));
 		autorization($input_username, $input_userpass);
 	}
 
