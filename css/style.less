@@ -16,11 +16,12 @@
 }
 
 html, body {
+  outline: none;
   margin:0;
   padding:0;
   height: 100%;
   background: white;
-  font-family:"Segoe UI", Helvetica, Verdana, sans-serif;
+  font-family:Verdana, Arial, sans-serif;
 }
 
 a {
@@ -62,7 +63,7 @@ a {
   @inp_div_h:30px;
   @inp_div_w:200px;
   position: relative;
-  top: 100px;
+  top: 25%;
   padding:40px 0 0 140px;
   margin: auto;
   background: url("./img/auth_logo2.png") no-repeat left+20px center @main_color;
@@ -72,22 +73,22 @@ a {
   input {
     border: none 0;
     background: #ffffff;
-    width: @inp_div_w - 10px;
+    width: @inp_div_w - 5px;
     height: @inp_div_h;
-    padding: 0;
+    padding: 0 0 0 5px;
     position: relative;
     left: 0;
     top: 0;
   }
   .inputu {
-    padding: 0 0 0 5px;
+    padding: 0;
     background: #ffffff;
     width: @inp_div_w;
     height: @inp_div_h;
   }
   .inputp {
     background: #ffffff;
-    padding: 0 0 0 5px;
+    padding: 0;
     width: @inp_div_w;
     height: @inp_div_h;
     margin-top: 15px;
@@ -197,11 +198,12 @@ a {
 
 #tree_objects {
   width: 100%;
+  border: none;
 }
 
 
 #tree_objects th {
-  border: outset darken(@panel_color, 30%) 2px;
+  border: solid darken(@panel_color, 30%) 1px;
   border-top: none;
   text-align: center;
   background: @panel_color;
@@ -255,4 +257,12 @@ a {
 ul.fancytree-container {
   border: none;
   overflow: visible;
+}
+.ui-menu kbd {
+  float: right;
+  margin-top: 2px;
+}
+.ui-menu-item {
+  min-width: 140px;
+  padding-right: 0 !important;
 }

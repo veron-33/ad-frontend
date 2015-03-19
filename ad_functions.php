@@ -15,6 +15,11 @@ catch (adLDAPException $e) {
 }
 
 // Функция проверки авторизации
+/**
+ * @param string $usern Username
+ * @param string $userp User password
+ * @throws adLDAPException
+ */
 function autorization($usern, $userp) {
 	global $error_text, $fail_time, $adldap;
 	if (!isset($_SESSION['login_failed'])) {
@@ -53,6 +58,15 @@ function autorization($usern, $userp) {
   }
   else {$error_text = "Вы исчерпали допустимое количество попыток ввода пароля! Ждите...";}
 }
+
+function logout() {
+    $_SESSION['admin'] = false;
+    //$adldap->close();
+    $_SESSION['admin'] = "";
+    $_SESSION['user_login'] = "";
+    //session_destroy();
+}
+
 
 // Устанавливаем подключение к контрлеру домену в случае установленной сессии
 if ($_SESSION['admin']) autorization($_SESSION['usern'], $_SESSION['userp']);

@@ -1,11 +1,12 @@
 @charset "windows-1251";
 html,
 body {
+  outline: none;
   margin: 0;
   padding: 0;
   height: 100%;
   background: white;
-  font-family: "Segoe UI", Helvetica, Verdana, sans-serif;
+  font-family: Verdana, Arial, sans-serif;
 }
 a {
   text-decoration: none;
@@ -42,7 +43,7 @@ a {
 }
 .auth_div {
   position: relative;
-  top: 100px;
+  top: 25%;
   padding: 40px 0 0 140px;
   margin: auto;
   background: url("img/auth_logo2.png") no-repeat left 20px center #3399ff;
@@ -53,22 +54,22 @@ a {
 .auth_div input {
   border: none 0;
   background: #ffffff;
-  width: 190px;
+  width: 195px;
   height: 30px;
-  padding: 0;
+  padding: 0 0 0 5px;
   position: relative;
   left: 0;
   top: 0;
 }
 .auth_div .inputu {
-  padding: 0 0 0 5px;
+  padding: 0;
   background: #ffffff;
   width: 200px;
   height: 30px;
 }
 .auth_div .inputp {
   background: #ffffff;
-  padding: 0 0 0 5px;
+  padding: 0;
   width: 200px;
   height: 30px;
   margin-top: 15px;
@@ -163,9 +164,10 @@ a {
 }
 #tree_objects {
   width: 100%;
+  border: none;
 }
 #tree_objects th {
-  border: outset #a0aab3 2px;
+  border: solid #a0aab3 1px;
   border-top: none;
   text-align: center;
   background: #f5f6f7;
@@ -213,4 +215,12 @@ a {
 ul.fancytree-container {
   border: none;
   overflow: visible;
+}
+.ui-menu kbd {
+  float: right;
+  margin-top: 2px;
+}
+.ui-menu-item {
+  min-width: 140px;
+  padding-right: 0 !important;
 }

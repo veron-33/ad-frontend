@@ -1,6 +1,6 @@
 <?php
 session_start();
-error_reporting(2047);
+error_reporting(E_ALL);
 // защита от запуска этого файла отдельно
 if ($main_var != 'parol') {
     exit;

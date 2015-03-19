@@ -1,8 +1,6 @@
 ﻿<?php
-/*
-Файл шапки страницы
-*/
 if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельно
+//header("Access-Control-Allow-Origin: *");
 ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
@@ -24,6 +22,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
     <!-- fancytree -->
     <link type="text/css" href="fancytree/skin-win8-n/ui.fancytree.css" rel="stylesheet"/>
     <script src="fancytree/jquery.fancytree-all.js" type="text/javascript"></script>
+    <script type="text/javascript" src="js/jquery.ui-contextmenu.js"></script>
     <!-- /fancytree -->
     <link type="text/css" href="css/style.css" rel="stylesheet"/>
     <script type="text/javascript" src="js/jscript.js"></script>
@@ -35,12 +34,11 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
         Web-AD
     </div>
     <?php if ($_SESSION['admin'] == true) { ?>
-        <div title="Создать нового пользователя" onclick="create_user()" class="top_btn">
-            +
-        </div>
-        <div title="Найти заблокированых пользователей" onclick="get_locked()" class="top_btn">
-            FL
-        </div>
+        <!-- Top buttons begin -->
+        <div title="Создать нового пользователя" onclick="create_user()" class="top_btn">+</div>
+        <div title="Поиск пользователя" onclick="find_user()" class="top_btn">F</div>
+        <div title="Найти заблокированых пользователей" onclick="get_locked()" class="top_btn">FL</div>
+        <!-- Top buttons end -->
         <div title="Выход" class="adm_panel" onclick="exit()">
             <?php echo $_SESSION['cur_username'] ?>
         </div>
