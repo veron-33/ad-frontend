@@ -66,6 +66,10 @@ function build_tree() {
                 beforeOpen: function(e, ui) {
                     var node = $.ui.fancytree.getNode(ui.target);
                     node.setActive();
+                    var node_type = node.data.type;
+                    if (node_type == "user") {
+                        obj_area.contextmenu("enableEntry", "m_del",true);
+                    }
                 },
                 menu: [
                     {title:"Свойтсва", cmd:"m_edit", disabled:true},
@@ -75,7 +79,16 @@ function build_tree() {
                             node.editStart();
                         }
                     },
-                    {title:"Удалить", cmd:"m_del", disabled:true},
+                    {title:"Удалить", cmd:"m_del", disabled:true,
+                        action: function(e,ui){
+                            if (confirm("Вы действительно хотите удалить данного пользователя?\nДанное действие необратимо!")) {
+                                var node = $.ui.fancytree.getNode(ui.target);
+                                var users = [];
+                                users[users.length] = node.data.login;
+                                delete_user(users);
+                            }
+                        }
+                    },
                     {title:"----"},
                     {title: "Копировать", cmd: "", disabled:true},
                     {title: "Вырезать", cmd: "", disabled:true},
@@ -140,6 +153,11 @@ $(function() {
 			autofocusInput: false,
 			handleCursorKeys: true
 		},
+        renderColumns:function(e,data){
+            var node = data.node,
+                $tdList = $(node.tr).find(">td");
+            $tdList.eq(2).text(node.data.dtype)
+        },
 		imagePath: "./css/img/",
 		selectMode: 2,
 		checkbox: true,
@@ -196,11 +214,26 @@ function create_user() {
 }
 
 /**
- *
  * @param users Array of users
  */
 function delete_user(users) {
-
+    if ($.isArray(users) && users.length > 0) {
+        $.get(
+            "index.php",
+            {
+                act:"del_users",
+                u: users
+            },
+            function(data) {
+                if (data) {
+                    alert("Пользователь успешно удален")
+                }
+                else {
+                    alert("Ошибка при удалении пользователя. Кури логи")
+                }
+            }
+        )
+    }
 }
 
 function check_cr_user_form() {
@@ -243,7 +276,6 @@ function find_user() {
 }
 
 /**
- *
  * @param xhr object
  * @param returned boolean
  * @returns {boolean}

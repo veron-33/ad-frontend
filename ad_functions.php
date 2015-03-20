@@ -92,8 +92,8 @@ function get_node_type ($dn) {
 
 /**
  * dynatree дерево с подгрузской данных
- * @param $foldername - путь поиска
- * @param $ob_type - тип объекта для поиска
+ * @param array $foldername - путь поиска
+ * @param string $ob_type - тип объекта для поиска
  * @param bool $check_child - проверка на наличие "детей"
  * @return array|bool|string
  */
@@ -108,13 +108,22 @@ function build_tree($foldername, $ob_type ,$check_child = false) {
 			$path[] = explode(":",$value)[1];
 		}
 	}
-
 	$folders = $adldap->folder()->listing($path, "oucn", false, $ob_type);
-	if ($folders["count"]==0 && $check_child) return false;
-	else if ($check_child) return true;
+	if ($check_child) {
+        if ($folders["count"] == 0) return false;
+        else return true;
+    }
 	$result = array();
 	//print_r($folders);
 	//return false;
+    $obtypes = array(
+        "folder"=>"Контейнер",
+        "user"=>"Пользователь",
+        "group"=>"Группа",
+        "contact"=>"Контакт",
+        "computer"=>"Компьютер"
+    );
+
 	for ($i=0; $i < $folders["count"]; $i++) {
 		$curr_cn = get_cn($folders[$i]["dn"]);
 		$curr_ct = "CN";
@@ -125,6 +134,10 @@ function build_tree($foldername, $ob_type ,$check_child = false) {
 			$curr_ct=get_cont_type($folders[$i]["dn"]);
 		}
 		else $result[$i]["icon"] = "". $curr_type ."16.png";
+        //set meta:
+        $result[$i]["data"]["type"] = $curr_type;
+        $result[$i]["data"]["dtype"] = $obtypes[$curr_type];
+        $result[$i]["data"]["login"] = $folders[$i]["samaccountname"][0];
 		$nf = $foldername;
 		array_unshift($nf, $curr_ct.":".$curr_cn);
 		if (build_tree($nf, $ob_type, true)) {
@@ -137,7 +150,10 @@ function build_tree($foldername, $ob_type ,$check_child = false) {
 	return $result;
 }
 
-
+/**
+ * Функция поиска заблокированых пользователей
+ * @return array|bool
+ */
 function get_locked_users() {
     global $adldap;
     $searchAttr = array("lockouttime", "1", ">=");
@@ -165,6 +181,12 @@ function get_locked_users() {
     }
 }
 
+/**
+ * Функция разблокировки пользователя
+ * @param string $user Логин пользователя
+ * @return bool
+ * @throws adLDAPException
+ */
 function unlock_user($user) {
     global $adldap;
     return $adldap->user()->modify($user, array("lockouttime" => '0'));

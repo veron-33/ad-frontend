@@ -72,6 +72,20 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             exit;
         }
 
+        //Удаление пользователя
+        if ($_GET['act'] == "del_users") {
+            if (isset($_GET['u']) and is_array($_GET["u"])) {
+                $users = $_GET['u'];
+                $res = true;
+                foreach ($users as $user) {
+                    $del = $adldap->user()->delete($user);
+                    if (!$del) $res = false;
+                }
+            }
+            echo $res;
+            exit;
+        }
+
 
         //Создать нового пользователя
         if (($_GET['act'] == "cr_user")
@@ -83,10 +97,20 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             and (isset($_GET["cr_user_pass"]))
             and (isset($_GET["cr_user_cont"]))
         ) {
-
             $cont = str_replace(":", "=", explode("__", $_GET["cr_user_cont"]));
             //$cont=  explode("__", $_GET["cr_user_cont"]);
+            if ($_GET["cr_user_chpas"] == "on") {
+                $require_pch = 1;
+            } else {
+                $require_pch = 0;
+            }
+            if (isset($_GET["cr_user_descr"])) {
+                $description = $_GET["cr_user_descr"];
+            } else {
+                $description = "";
+            }
             $attributes = array(
+                "logon_name" => mb_convert_encoding($_GET["cr_user_logon"], "Windows-1252").$ad_conf["account_suffix"],
                 "username" => mb_convert_encoding($_GET["cr_user_logon"], "Windows-1252"),
                 "firstname" => mb_convert_encoding($_GET["cr_user_name"], "Windows-1251", "UTF-8"),
                 "surname" => iconv("UTF-8", "Windows-1252//TRANSLIT", $_GET["cr_user_surn"]),
@@ -94,7 +118,8 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
                 "container" => $cont,
                 "enabled" => 1,
                 "password" => $_GET["cr_user_pass"],
-                "display_name" => $_GET["cr_user_fullname"]
+                "display_name" => $_GET["cr_user_fullname"],
+                "change_password" => $require_pch
             );
             //echo "cont=". $cont;
 

@@ -8,9 +8,18 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 
 // Настройки AD  #####################################################################
 
+$dcs = array(
+    "verondc.veronet.local",
+    "dc1.s-tech.ru",
+    "cyclop.s-tech.ru"
+);
+
 // !!! Введите FQDN контролера домена:  !!!
-$ad_host = "verondc.veronet.local";
-//$ad_host = "cyclop.s-tech.ru";
+//$ad_host = "verondc.veronet.local";
+
+
+if (isset($_POST["dc"])) $_SESSION["dc"] = $_POST["dc"];
+$ad_host = $_SESSION["dc"];
 
 // выделяем имя домена
 $ad_domain = substr(strstr($ad_host,"."),1);

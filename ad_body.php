@@ -58,16 +58,14 @@ if ($_SESSION['admin'] === true) {
             <table id="tree_objects">
                 <colgroup>
                     <col style="width:26px; max-width: 26px;">
-                    <col width="800px">
-                    <col width="100px">
-                    <col width="100px">
+                    <col>
+                    <col width="150px">
                 </colgroup>
                 <thead>
                 <tr>
                     <th style="width: 26px; max-width: 26px;"></th>
-                    <th width="800px">Имя</th>
-                    <th width="100px">Параметр1</th>
-                    <th width="100px">Параметр2</th>
+                    <th>Имя</th>
+                    <th width="150px">Тип</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -96,6 +94,15 @@ if ($_SESSION['admin'] === true) {
             <div class="inputp">
                 <input type="password" name="pass" tabindex="2"/>
                 <input class="auth_submit" type="submit" value="→" tabindex="3"/>
+            </div>
+            <div>
+                <select name="dc" id="dc">
+                    <?php
+                    foreach ($dcs as $host) {
+                        echo "<option value='".$host."''>".$host."</option>";
+                    }
+                    ?>
+                </select>
             </div>
                 <input type="hidden" name="act" value="auth"/>
         </form>
