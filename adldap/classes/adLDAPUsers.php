@@ -168,7 +168,7 @@ class adLDAPUsers {
     * 
     * @param string $username The username to delete (please be careful here!)
     * @param bool $isGUID Is the username a GUID or a samAccountName
-    * @return array
+    * @return bool
     */
     public function delete($username, $isGUID = false) 
     {      
