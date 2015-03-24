@@ -10,6 +10,7 @@ body {
 }
 a {
   text-decoration: none;
+  outline: none;
 }
 .top_div {
   background: #3399ff;
@@ -28,6 +29,7 @@ a {
   color: #ffffff !important;
   background: url("img/logo.png") no-repeat left center;
   margin: 0 50px 0 10px;
+  cursor: pointer;
 }
 .top_btn {
   background: #198cff;
@@ -52,7 +54,7 @@ a {
   vertical-align: middle;
 }
 .auth_div input {
-  border: none 0;
+  border: none 0 !important;
   background: #ffffff;
   width: 195px;
   height: 30px;
@@ -60,6 +62,7 @@ a {
   position: relative;
   left: 0;
   top: 0;
+  outline: none;
 }
 .auth_div .inputu {
   padding: 0;
@@ -97,7 +100,7 @@ a {
   height: 45px;
   line-height: 45px;
   right: 0;
-  text-outline: 0;
+  /* text-outline: 0;*/
   color: #ffffff;
   padding: 0 10px;
   float: right;
@@ -138,6 +141,7 @@ a {
   position: relative;
   background: #ffffff;
   margin: 2px 0 0 2px;
+  outline: none;
 }
 #left_div .ui-resizable-e {
   cursor: col-resize;
@@ -152,6 +156,7 @@ a {
   width: calc(100% - 6px);
   border: 1px solid #bcc3ca !important;
   border-right: none;
+  outline: none;
 }
 #right_div {
   position: relative;
@@ -165,6 +170,7 @@ a {
 #tree_objects {
   width: 100%;
   border: none;
+  outline: none;
 }
 #tree_objects th {
   border: solid #a0aab3 1px;
@@ -215,6 +221,7 @@ a {
 ul.fancytree-container {
   border: none;
   overflow: visible;
+  outline: none;
 }
 .ui-menu kbd {
   float: right;

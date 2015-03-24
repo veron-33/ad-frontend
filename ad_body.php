@@ -2,15 +2,13 @@
 if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельно
 //header("Access-Control-Allow-Origin: *");
 ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
-    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
-    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet"
-    /
+    <link type="text/css" href="css/jquery-ui.css" rel="stylesheet"/>
     <!-- include jquery libs -->
 
     <script src="js/jquery.js" type="text/javascript"></script>
@@ -30,7 +28,7 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 </head>
 <body>
 <div class="top_div">
-    <div class="header-text">
+    <div class="header-text" onclick="window.location.reload();">
         Web-AD
     </div>
     <?php if ($_SESSION['admin'] == true) { ?>
@@ -87,7 +85,7 @@ if ($_SESSION['admin'] === true) {
 <?php
 } else {?>
     <div class="auth_div">
-        <form action="index.php" method="post" name="authorization">
+        <form action="./" method="post" name="authorization">
             <div class="inputu">
                 <input type="text" name="login" tabindex="1"/>
             </div>
@@ -99,7 +97,7 @@ if ($_SESSION['admin'] === true) {
                 <select name="dc" id="dc">
                     <?php
                     foreach ($dcs as $host) {
-                        echo "<option value='".$host."''>".$host."</option>";
+                        echo "<option value='".$host."'>".$host."</option>";
                     }
                     ?>
                 </select>

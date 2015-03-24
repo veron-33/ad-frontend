@@ -1,38 +1,50 @@
-<form action="index.php" id="cr_user_form">
-<table>
-    <tr>
-        <td><label for="cr_user_surn">Фамилия: </label></td>
-        <td><input style="width:370px" type="text" id="cr_user_surn" name="cr_user_surn"></td>
-    </tr>
-    <tr>
-        <td><label for="cr_user_name">Имя: </label></td>
-        <td><input style="width:370px" type="text" id="cr_user_name" name="cr_user_name"></td>
-    </tr>
-    <tr>
-        <td><label for="cr_user_fullname">Полное имя: </label></td>
-        <td><input style="width:370px" type="text" id="cr_user_fullname" name="cr_user_fullname"></td>
-    </tr>
-	<tr>
-		<td><label for="cr_user_logon">Имя входа:</label> </td>
-		<td><input style="width:370px" type="text" id="cr_user_logon" name="cr_user_logon"></td>
-	</tr>
-    <tr>
-        <td><label for="cr_user_email">Электронная почта: </label></td>
-        <td><input style="width:370px" type="text" id="cr_user_email" name="cr_user_email"></td>
-    </tr>
-    <tr>
-        <td><label for="cr_user_pass">Пароль (дважды): </label></td>
-        <td><input style="width: 175px" type="password" id="cr_user_pass" name="cr_user_pass"><input style="margin-left: 14px; width: 175px" type="password" id="cr_user_pass2" name="user_pass2"></td>
-    </tr>
-    <tr>
-        <td></td>
-        <td><label><input type="checkbox" name="cr_user_chpas">Требовать смену пароля при первом входе</label></td>
-    </tr>
-    <tr>
-        <td><label for="cr_user_cont">Контейнер: </label></td>
-        <td><input style="width:370px" type="text" readonly id="cr_user_cont_sh" value="Выбрать слева" name="cr_user_cont_sh"></td>
-    </tr>
-</table>
-<input type="hidden" name="act" value="cr_user">
-<input type="hidden" id="cr_user_cont" name="cr_user_cont" value="">
-</form>
+<div id="cr_user_tabs">
+    <form action="index.php" id="cr_user_form">
+        <ul>
+            <li><a href="#tabs-1">Общее</a></li>
+            <li><a href="#tabs-2">Группы</a></li>
+        </ul>
+        <div id="tabs-1">
+            <table>
+                <tr>
+                    <td><label for="cr_user_surn">Фамилия: </label></td>
+                    <td><input style="width:370px" type="text" id="cr_user_surn" name="cr_user_surn"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_name">Имя: </label></td>
+                    <td><input style="width:370px" type="text" id="cr_user_name" name="cr_user_name"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_fullname">Полное имя: </label></td>
+                    <td><input style="width:370px" type="text" id="cr_user_fullname" name="cr_user_fullname"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_logon">Имя входа:</label></td>
+                    <td><input style="width:370px" type="text" id="cr_user_logon" name="cr_user_logon"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_email">Электронная почта: </label></td>
+                    <td><input style="width:370px" type="text" id="cr_user_email" name="cr_user_email"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_pass">Пароль (дважды): </label></td>
+                    <td><input style="width: 175px" type="password" id="cr_user_pass" name="cr_user_pass"><input
+                            style="margin-left: 14px; width: 175px" type="password" id="cr_user_pass2"
+                            name="user_pass2"></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td><label><input type="checkbox" name="cr_user_chpas">Требовать смену пароля при первом
+                        входе</label></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_cont">Контейнер: </label></td>
+                    <td><input style="width:370px" type="text" readonly id="cr_user_cont_sh" value="Выбрать слева"
+                               name="cr_user_cont_sh"></td>
+                </tr>
+            </table>
+        </div>
+        <input type="hidden" name="act" value="cr_user">
+        <input type="hidden" id="cr_user_cont" name="cr_user_cont" value="">
+    </form>
+</div>

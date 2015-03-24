@@ -1,7 +1,9 @@
 // Засекаю время
 var start = new Date();
 
-//функция построения дерева каталогов
+/**
+ * функция построения дерева каталогов
+ */
 function build_tree() {
 	//задаем параметры дерева
 	var arr = {
@@ -128,6 +130,9 @@ function build_tree() {
     });
 }
 
+/**
+ *
+ */
 $(function() {
     $(window).ajaxSuccess(function(e,xhr){check_ajax_header(xhr, false);});
 	selected_node = false;
@@ -167,8 +172,12 @@ $(function() {
 		},
 		source: []
 	})
-});		
+});
 
+/**
+ *
+ * @returns {boolean}
+ */
 function create_user() {
     if (!selected_node) {
         alert("Сначала выберите контейнер!");
@@ -180,6 +189,7 @@ function create_user() {
         "./ajax/ad_create_user.html",
         function (data) {
             dial_box.html(data);
+            $('#cr_user_tabs').tabs();
 	        // в поле "Контейнер" вставляем текущее значение переменной выбранного контейнера
 	        $("#cr_user_cont_sh").attr("value",selected_node.replace(/..:/g, "" ).split('__').reverse().join(" / "));
 			$("#cr_user_cont").attr("value", selected_node);
@@ -219,7 +229,7 @@ function create_user() {
 function delete_user(users) {
     if ($.isArray(users) && users.length > 0) {
         $.get(
-            "index.php",
+            "/",
             {
                 act:"del_users",
                 u: users
@@ -236,10 +246,17 @@ function delete_user(users) {
     }
 }
 
+/**
+ *
+ * @returns {boolean}
+ */
 function check_cr_user_form() {
     return false;
 }
 
+/**
+ *
+ */
 function find_user() {
     $.get(
         "./ajax/ad_find_user.html",
@@ -289,9 +306,12 @@ function check_ajax_header (xhr, returned) {
     else if (returned) return true
 }
 
+/**
+ *
+ */
 function get_locked() {
     var xhr=$.get(
-        "./index.php",
+        "./",
         {act:"get_locked_users"},
         function (data) {
             if (check_ajax_header(xhr, true)) {
@@ -360,9 +380,13 @@ function get_locked() {
     );
 }
 
+/**
+ *
+ * @param users
+ */
 function unlock_users(users) {
     var xhr = $.get(
-        "./index.php",
+        "./",
         {
             act:"unlock_users",
             ul:users
@@ -375,6 +399,9 @@ function unlock_users(users) {
     )
 }
 
+/**
+ *
+ */
 function exit() {
     $("#tree").fancytree("getTree").clearCookies();
     $("#tree_objects").fancytree("getTree").clearCookies();
