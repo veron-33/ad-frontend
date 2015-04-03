@@ -812,7 +812,7 @@ class adLDAP {
         $mod=array();
 
         // Check every attribute to see if it contains 8bit characters and then UTF8 encode them
-        array_walk($attributes, array($this, 'encode8bit'));
+        //array_walk($attributes, array($this, 'encode8bit'));
 
         if ($attributes["address_city"]){ $mod["l"][0]=$attributes["address_city"]; }
         if ($attributes["address_code"]){ $mod["postalCode"][0]=$attributes["address_code"]; }

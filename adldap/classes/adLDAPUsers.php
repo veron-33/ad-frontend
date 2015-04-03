@@ -78,7 +78,7 @@ class adLDAPUsers {
         if (!array_key_exists("username", $attributes)){ return "Missing compulsory field [username]"; }
         if (!array_key_exists("firstname", $attributes)){ return "Missing compulsory field [firstname]"; }
         if (!array_key_exists("surname", $attributes)){ return "Missing compulsory field [surname]"; }
-        if (!array_key_exists("email", $attributes)){ return "Missing compulsory field [email]"; }
+        //if (!array_key_exists("email", $attributes)){ return "Missing compulsory field [email]"; }
         if (!array_key_exists("container", $attributes)){ return "Missing compulsory field [container]"; }
         if (!is_array($attributes["container"])){ return "Container attribute must be an array."; }
 
@@ -113,7 +113,7 @@ class adLDAPUsers {
         // $attributes["container"] = array_reverse($attributes["container"]);
         // $container = "OU=" . implode(",OU=",$attributes["container"]);
         $container = implode(",",$attributes["container"]);
-
+       // echo "<pre>"; print_r($add); exit;
         // Add the entry
         $result = @ldap_add($this->adldap->getLdapConnection(), "CN=" . $add["cn"][0] . "," . $container . "," . $this->adldap->getBaseDn(), $add);
         if ($result != true) {

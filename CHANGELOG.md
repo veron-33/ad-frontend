@@ -61,3 +61,7 @@
 ### 24.03.2015
 * UI-fixes (fixed user agent stylesheet problems)
 * Added jq.tabs in create user form
+
+### 3.04.2015
+* Fixed issue with creation of new user with cyrillic symbols
+* Added form-validation in create-user-form

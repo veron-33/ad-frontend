@@ -1,6 +1,7 @@
 ﻿<?php
 if ($main_var != 'parol') exit;     // защита от запуска этого файла отдельно
 //header("Access-Control-Allow-Origin: *");
+header('Content-Type: text/html; charset=utf-8');
 ?>
 <!DOCTYPE HTML>
 <html>
@@ -9,13 +10,15 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
     <link rel="shortcut icon" href="favicon.ico" type="image/x-icon"/>
     <link rel="icon" href="favicon.ico" type="image/x-icon"/>
     <link type="text/css" href="css/jquery-ui.css" rel="stylesheet"/>
+    <link href="js/validetta/validetta.css" rel="stylesheet" type="text/css">
     <!-- include jquery libs -->
 
     <script src="js/jquery.js" type="text/javascript"></script>
     <script type="text/javascript" src="./js/jquery.form.js"></script>
     <script src="js/jquery-ui.min.js" type="text/javascript"></script>
     <script type="text/javascript" src="js/jquery.cookie.js"></script>
-    <!--script type="text/javascript" src="js/jquery.stickytableheaders.js"></script-->
+    <script type="text/javascript" src="js/validetta/validetta.js"></script>
+    <script type="text/javascript" src="js/validetta/validettaLang-ru-RU.js"></script>
 
     <!-- fancytree -->
     <link type="text/css" href="fancytree/skin-win8-n/ui.fancytree.css" rel="stylesheet"/>
@@ -78,7 +81,6 @@ if ($_SESSION['admin'] === true) {
             $E_TIME = round(((time() + microtime()) - $S_TIME), 8);        //Отсекаю время
             echo "server: $E_TIME sec, ";
             ?>
-            client: <span id="client_time"></span> sec
             © Created by <a style="text-decoration:none" href="mailto:veron-33@yandex.ru">Veron</a>, 2013-2015
         </div>
     </div>
@@ -87,10 +89,10 @@ if ($_SESSION['admin'] === true) {
     <div class="auth_div">
         <form action="./" method="post" name="authorization">
             <div class="inputu">
-                <input type="text" name="login" tabindex="1"/>
+                <input type="text" autofocus placeholder="Логин (доменный)" name="login" tabindex="1"/>
             </div>
             <div class="inputp">
-                <input type="password" name="pass" tabindex="2"/>
+                <input type="password" placeholder="Пароль" name="pass" tabindex="2"/>
                 <input class="auth_submit" type="submit" value="→" tabindex="3"/>
             </div>
             <div>
@@ -115,8 +117,4 @@ if (isset($error_text) && $error_text != "") {
 }
 ?>
 <div id="dialog_div"></div>
-<script type="text/javascript" >
-    var now = new Date();
-    $('#client_time').html((now - start)/1000);
-</script>
 </body></html>

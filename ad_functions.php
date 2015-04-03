@@ -138,6 +138,7 @@ function build_tree($foldername, $ob_type ,$check_child = false) {
         $result[$i]["data"]["type"] = $curr_type;
         $result[$i]["data"]["dtype"] = $obtypes[$curr_type];
         $result[$i]["data"]["login"] = $folders[$i]["samaccountname"][0];
+        //$result[$i]["data"]["code"] = mb_detect_encoding($curr_cn);
 		$nf = $foldername;
 		array_unshift($nf, $curr_ct.":".$curr_cn);
 		if (build_tree($nf, $ob_type, true)) {

@@ -1,5 +1,35 @@
-// Засекаю время
-var start = new Date();
+
+/*var myLanguage = {
+    errorTitle : 'Отправка формы не удалась!',
+    requiredFields : 'Не все поля заполнены',
+    badTime : 'Указано некорректное время',
+    badEmail : 'Указан некорректный адрес',
+    badTelephone : 'Введен некорректный номер телефона',
+    badSecurityAnswer : 'Вы неверно ответили на секретный вопрос',
+    badDate : 'Указана некорректная дата',
+    lengthBadStart : 'Значеное должно быть в пределах ',
+    lengthBadEnd : ' символов',
+    lengthTooLongStart : 'Значение не должно быть больше ',
+    lengthTooShortStart : 'Значение не должно быть меньше ',
+    notConfirmed : 'Значение не подтвержденно',
+    badDomain : 'Некорректный домен',
+    badUrl : 'The answer you gave was not a correct URL',
+    badCustomVal : 'Введено некорректное значение',
+    badInt : 'Должно быть указано число',
+    badSecurityNumber : 'Your social security number was incorrect',
+    badUKVatAnswer : 'Incorrect UK VAT Number',
+    badStrength : 'Пароль не достаточно сильный',
+    badNumberOfSelectedOptionsStart : 'Вы должны выбрать хотя бы ',
+    badNumberOfSelectedOptionsEnd : ' ответов',
+    badAlphaNumeric : 'Значение должно содержать только буквы (лат) и цифры ',
+    badAlphaNumericExtra: ' и ',
+    wrongFileSize : 'The file you are trying to upload is too large',
+    wrongFileType : 'The file you are trying to upload is of wrong type',
+    groupCheckedRangeStart : 'Укажите между ',
+    groupCheckedTooFewStart : 'Выберите по крайне мере ',
+    groupCheckedTooManyStart : 'Выберите не более ',
+    groupCheckedEnd : ' значений'
+};*/
 
 /**
  * функция построения дерева каталогов
@@ -134,7 +164,7 @@ function build_tree() {
  *
  */
 $(function() {
-    $(window).ajaxSuccess(function(e,xhr){check_ajax_header(xhr, false);});
+    $(document).ajaxSuccess(function(e,xhr){check_ajax_header(xhr, false);});
 	selected_node = false;
     dial_box = $("#dialog_div");
     dial_box.dialog({autoOpen:false});
@@ -189,13 +219,70 @@ function create_user() {
         "./ajax/ad_create_user.html",
         function (data) {
             dial_box.html(data);
-            $('#cr_user_tabs').tabs();
+            $("#cr_user_form").validetta({
+                realTime:true,
+                validators: {
+                    regExp: {
+                        pwd: {
+                            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/,
+                            errorMessage: "Пароль не удовлетворяет требованиям!"
+                        },
+                        mail: {
+                            pattern: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/,
+                            errorMessage: "Адрес почты введен некорректно"
+                        }
+                    }
+                }
+
+            });
+            var arr_l = $("#cr_user_form_arr_l");
+            var arr_r = $("#cr_user_form_arr_r");
+            var selected_tab = 0;
+            arr_l.button({
+                icons: {primary:"ui-icon-circle-arrow-w"},
+                disabled: true,
+                text: false
+            });
+            arr_r.button({
+                icons: {primary:"ui-icon-circle-arrow-e"},
+                text: false
+            });
+            $('#cr_user_tabs').tabs({
+                activate: function () {
+                    selected_tab = $('#cr_user_tabs').tabs("option", "active");
+                    if (selected_tab == 0) {arr_l.button({disabled:true})}
+                    else {arr_l.button({disabled:false})}
+                    if (selected_tab == 2) {arr_r.button({disabled:true})}
+                    else {arr_r.button({disabled:false})}
+                }
+            });
+            arr_l.click(function () {
+                $('#cr_user_tabs').tabs("option", "active", --selected_tab)
+            });
+            arr_r.click(function () {
+                $('#cr_user_tabs').tabs("option", "active", ++selected_tab)
+            });
+            $("#cr_user_surn").keyup(
+                function() {
+                    var sb = (($("#cr_user_surn").val().length > 0) && ($("#cr_user_name").val().length > 0))?" ":"";
+                    $("#cr_user_fullname").val($("#cr_user_surn").val() + sb+ $("#cr_user_name").val());
+                }
+            );
+            $("#cr_user_name").keyup(
+                function() {
+                    var sb = (($("#cr_user_surn").val().length > 0) && ($("#cr_user_name").val().length > 0))?" ":"";
+                    $("#cr_user_fullname").val($("#cr_user_surn").val() + sb + $("#cr_user_name").val());
+                }
+            );
 	        // в поле "Контейнер" вставляем текущее значение переменной выбранного контейнера
 	        $("#cr_user_cont_sh").attr("value",selected_node.replace(/..:/g, "" ).split('__').reverse().join(" / "));
 			$("#cr_user_cont").attr("value", selected_node);
-	        $("#cr_user_form").ajaxForm(function() {
-		        alert("Пользователь создан успешно!");
-	        });
+	        $("#cr_user_form").ajaxForm({
+                type: "POST",
+                success: function(data) {
+                    alert(data);
+                }
+            });
             dial_box.dialog({
                 title: "Создание нового пользователя",
                 modal:true,
@@ -229,7 +316,7 @@ function create_user() {
 function delete_user(users) {
     if ($.isArray(users) && users.length > 0) {
         $.get(
-            "/",
+            "./",
             {
                 act:"del_users",
                 u: users
@@ -293,8 +380,8 @@ function find_user() {
 }
 
 /**
- * @param xhr object
- * @param returned boolean
+ * @param {object} xhr
+ * @param {boolean} returned
  * @returns {boolean}
  */
 function check_ajax_header (xhr, returned) {

@@ -1,0 +1,35 @@
+.validetta-bubble {
+    position: absolute;
+    background-color: #fef1ec;
+    max-width: 325px;
+    border-radius: 2px;
+    color: #cd0a0a;
+    padding: 3px 3px 3px 10px;
+    z-index: 9;
+    border: 1px solid #cd0a0a;
+}
+.validetta-bubble--right:before {
+    top: 4px;
+    left: -10px;
+    border-color: transparent #cd0a0a transparent transparent; }
+.validetta-bubble--bottom:before {
+    top: -10px;
+    left: 10px;
+    border-color: transparent transparent #cd0a0a transparent; }
+
+.validetta-bubble:before {
+    content: '';
+    position: absolute;
+    display: block;
+    height: 0;
+    width: 0;
+    border-width: 5px;
+    border-style: solid; }
+
+.validetta-inline,
+.validetta-bubble {
+    display: block;
+    font: 12px/14px Arial, Helvetica, sans-serif; }
+
+.validetta-inline {
+    color: #cd0a0a; }

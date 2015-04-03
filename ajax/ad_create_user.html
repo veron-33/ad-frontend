@@ -1,50 +1,70 @@
 <div id="cr_user_tabs">
-    <form action="index.php" id="cr_user_form">
+    <form enctype="text/plain" action="./" id="cr_user_form">
         <ul>
             <li><a href="#tabs-1">Общее</a></li>
             <li><a href="#tabs-2">Группы</a></li>
+            <li><a href="#tabs-3">Организация</a></li>
         </ul>
         <div id="tabs-1">
             <table>
                 <tr>
                     <td><label for="cr_user_surn">Фамилия: </label></td>
-                    <td><input style="width:370px" type="text" id="cr_user_surn" name="cr_user_surn"></td>
+                    <td><input data-validetta="required,minLength[2],maxLength[30]" type="text" id="cr_user_surn" required name="cr_user_surn">*</td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_name">Имя: </label></td>
-                    <td><input style="width:370px" type="text" id="cr_user_name" name="cr_user_name"></td>
+                    <td><input data-validetta="required,minLength[2],maxLength[30]" type="text" id="cr_user_name" required name="cr_user_name">*</td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_fullname">Полное имя: </label></td>
-                    <td><input style="width:370px" type="text" id="cr_user_fullname" name="cr_user_fullname"></td>
+                    <td><input data-validation="required" type="text" id="cr_user_fullname" required name="cr_user_fullname"></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_logon">Имя входа:</label></td>
-                    <td><input style="width:370px" type="text" id="cr_user_logon" name="cr_user_logon"></td>
+                    <td><input type="text" id="cr_user_logon" required name="cr_user_logon"></td>
                 </tr>
                 <tr>
-                    <td><label for="cr_user_email">Электронная почта: </label></td>
-                    <td><input style="width:370px" type="text" id="cr_user_email" name="cr_user_email"></td>
+                    <td><label for="cr_user_pass">Пароль: </label></td>
+                    <td><input data-validetta="required,minLength[8],regExp[pwd]" type="password" required id="cr_user_pass" name="cr_user_pass"></td>
                 </tr>
                 <tr>
-                    <td><label for="cr_user_pass">Пароль (дважды): </label></td>
-                    <td><input style="width: 175px" type="password" id="cr_user_pass" name="cr_user_pass"><input
-                            style="margin-left: 14px; width: 175px" type="password" id="cr_user_pass2"
-                            name="user_pass2"></td>
+                    <td><label for="cr_user_pass">Еще раз: </label></td>
+                    <td><input data-validetta="required,equalTo[cr_user_pass]" type="password" id="cr_user_pass2" required name="cr_user_pass_c"></td>
                 </tr>
                 <tr>
-                    <td></td>
-                    <td><label><input type="checkbox" name="cr_user_chpas">Требовать смену пароля при первом
+                    <td colspan="2"><label><input style="width: 20px; margin: 0" type="checkbox" name="cr_user_chpas">Требовать смену пароля при первом
                         входе</label></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_cont">Контейнер: </label></td>
-                    <td><input style="width:370px" type="text" readonly id="cr_user_cont_sh" value="Выбрать слева"
+                    <td><input type="text" readonly id="cr_user_cont_sh" value="Выбрать слева"
                                name="cr_user_cont_sh"></td>
+                </tr>
+            </table>
+
+        </div>
+        <div id="tabs-2"></div>
+        <div id="tabs-3">
+            <table>
+                <tr>
+                    <td><label for="cr_user_dol">Должность: </label></td>
+                    <td><input style="width:250px" type="text" id="cr_user_dol" name="cr_user_dol"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_email">Электронная почта: </label></td>
+                    <td><input data-validetta="regExp[mail]" style="width:250px" type="email" id="cr_user_email" name="cr_user_email"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_descr">Описание: </label></td>
+                    <td><textarea id="cr_user_descr" name="cr_user_descr"></textarea></td>
                 </tr>
             </table>
         </div>
         <input type="hidden" name="act" value="cr_user">
         <input type="hidden" id="cr_user_cont" name="cr_user_cont" value="">
     </form>
+</div>
+<div class="cr_user_form_arrows">
+    <div id="cr_user_form_arr_l"></div>
+    <div id="cr_user_form_arr_r"></div>
 </div>

@@ -88,37 +88,37 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
 
 
         //Создать нового пользователя
-        if (($_GET['act'] == "cr_user")
-            and (isset($_GET["cr_user_surn"]))
-            and (isset($_GET["cr_user_name"]))
-            and (isset($_GET["cr_user_fullname"]))
-            and (isset($_GET["cr_user_logon"]))
-            and (isset($_GET["cr_user_email"]))
-            and (isset($_GET["cr_user_pass"]))
-            and (isset($_GET["cr_user_cont"]))
+        if (($_POST['act'] == "cr_user")
+            and (isset($_POST["cr_user_surn"]))
+            and (isset($_POST["cr_user_name"]))
+            and (isset($_POST["cr_user_fullname"]))
+            and (isset($_POST["cr_user_logon"]))
+            and (isset($_POST["cr_user_email"]))
+            and (isset($_POST["cr_user_pass"]))
+            and (isset($_POST["cr_user_cont"]))
         ) {
-            $cont = str_replace(":", "=", explode("__", $_GET["cr_user_cont"]));
-            //$cont=  explode("__", $_GET["cr_user_cont"]);
-            if ($_GET["cr_user_chpas"] == "on") {
+            $cont = str_replace(":", "=", explode("__", $_POST["cr_user_cont"]));
+            //$cont=  explode("__", $_POST["cr_user_cont"]);
+            if ($_POST["cr_user_chpas"] == "on") {
                 $require_pch = 1;
             } else {
                 $require_pch = 0;
             }
-            if (isset($_GET["cr_user_descr"])) {
-                $description = $_GET["cr_user_descr"];
+            if (isset($_POST["cr_user_descr"])) {
+                $description = $_POST["cr_user_descr"];
             } else {
                 $description = "";
             }
             $attributes = array(
-                "logon_name" => mb_convert_encoding($_GET["cr_user_logon"], "Windows-1252").$ad_conf["account_suffix"],
-                "username" => mb_convert_encoding($_GET["cr_user_logon"], "Windows-1252"),
-                "firstname" => mb_convert_encoding($_GET["cr_user_name"], "Windows-1251", "UTF-8"),
-                "surname" => iconv("UTF-8", "Windows-1252//TRANSLIT", $_GET["cr_user_surn"]),
-                "email" => iconv("UTF-8", "Windows-1252//TRANSLIT", $_GET["cr_user_email"]),
+                "logon_name" => $_POST["cr_user_logon"].$ad_conf["account_suffix"],
+                "username" => $_POST["cr_user_logon"], "Windows-1252",
+                "firstname" => $_POST["cr_user_name"],
+                "surname" => $_POST["cr_user_surn"], "Windows-1252",
+                "email" => $_POST["cr_user_email"],
                 "container" => $cont,
                 "enabled" => 1,
-                "password" => $_GET["cr_user_pass"],
-                "display_name" => $_GET["cr_user_fullname"],
+                "password" => $_POST["cr_user_pass"],
+                "display_name" => $_POST["cr_user_fullname"],
                 "change_password" => $require_pch
             );
             //echo "cont=". $cont;
@@ -126,10 +126,10 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             //print_r($cont);
 
             $result = $adldap->user()->create($attributes);
-            if ($result) {
-                echo "true";
+            if ($result === true) {
+                echo "Пользователь ".$_POST["cr_user_fullname"]." успешно создан!!!";
             } else {
-                echo "false";
+                echo $result;
             }
             exit;
         }
