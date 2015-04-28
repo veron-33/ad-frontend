@@ -1,0 +1,18 @@
+<div id="ch_pass_div">
+    Укажите новый пароль для <span id="ch_pass_user_title"></span>:<br/><br/>
+
+    <form id="ch_pass_form" action="./">
+        <table>
+            <tr>
+                <td><label for="ch_pass_new_pass">Новый пароль:</label></td>
+                <td><input data-validetta="required,minLength[8],regExp[pwd]" id="ch_pass_new_pass" type="password" name="newpass" value=""/></td>
+            </tr>
+            <tr>
+                <td><label for="ch_pass_new_pass2">Подтверждение:</label></td>
+                <td><input id="ch_pass_new_pass2" data-validetta="required,equalTo[newpass]" type="password" name="newpass2" value=""/></td>
+            </tr>
+        </table>
+        <input id="ch_pass_user" type="hidden" name="user" value=""/>
+        <input type="hidden" name="act" value="change_pass"/>
+    </form>
+</div>

@@ -101,6 +101,7 @@ function build_tree() {
                     var node_type = node.data.type;
                     if (node_type == "user") {
                         obj_area.contextmenu("enableEntry", "m_del",true);
+                        obj_area.contextmenu("enableEntry","ch_pwd",true);
                     }
                 },
                 menu: [
@@ -111,11 +112,20 @@ function build_tree() {
                             node.editStart();
                         }
                     },
+                    {title:"Сменить пароль", cmd:"ch_pwd", disabled:true,
+                        action: function(e,ui) {
+                            var node = $.ui.fancytree.getNode(ui.target),
+                            user = node.data.login,
+                            title = node.title;
+                            change_user_pass(user, title);
+                        }
+                    },
+                    {title:"Отключить", cmd:"m_dis_u", disabled:true},
                     {title:"Удалить", cmd:"m_del", disabled:true,
                         action: function(e,ui){
                             if (confirm("Вы действительно хотите удалить данного пользователя?\nДанное действие необратимо!")) {
-                                var node = $.ui.fancytree.getNode(ui.target);
-                                var users = [];
+                                var node = $.ui.fancytree.getNode(ui.target),
+                                    users = [];
                                 users[users.length] = node.data.login;
                                 delete_user(users);
                             }
@@ -331,6 +341,61 @@ function delete_user(users) {
             }
         )
     }
+}
+
+
+/**
+ *
+ * @param user username (login)
+ * @param title display name
+ */
+function change_user_pass(user, title) {
+    $.get(
+        "./ajax/ad_change_pass.html",
+        function (data) {
+            dial_box.html(data);
+            $("#ch_pass_user_title").text(title);
+            $("#ch_pass_user").val(user);
+            $("#ch_pass_form").validetta({
+                realTime:true,
+                validators: {
+                    regExp: {
+                        pwd: {
+                            pattern: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).*$/,
+                            errorMessage: "Пароль не удовлетворяет требованиям!"
+                        }
+                    }
+                }
+            });
+            $("#ch_pass_form").ajaxForm({
+                type: "POST",
+                success: function(responseText) {
+                    if (responseText != "1") {
+                        alert(responseText);
+                    }
+                }
+            });
+            dial_box.dialog({
+                title: "Изменение пароля пользователя",
+                modal:true,
+                width: "600px",
+                position: {my: "center top", at: "center top+10%", of: window},
+                resizable: false,
+                buttons: {
+                    "Сменить":function () {
+                        $("#ch_pass_form").submit();
+                        $("#dialog_div").dialog("close");
+                        return false
+                    },
+                    "Отмена":function (){
+                        dial_box.dialog("close");
+                        dial_box.empty();
+                    }
+                }
+            });
+            dial_box.dialog("open");
+        }
+    );
 }
 
 /**

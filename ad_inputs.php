@@ -86,6 +86,20 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             exit;
         }
 
+        //Cмена пароля пользователя
+        if (($_POST['act'] == "change_pass")
+            and (isset($_POST['newpass']))
+            and (isset($_POST['user']))
+        ) {
+            if ($_POST['newpass'] != $_POST['newpass2']) {
+                echo "Пароли не совпадают";
+                exit;
+            }
+            $result = $adldap->user()->password($_POST['user'],$_POST['newpass']);
+            echo $result;
+            exit;
+        }
+
 
         //Создать нового пользователя
         if (($_POST['act'] == "cr_user")
