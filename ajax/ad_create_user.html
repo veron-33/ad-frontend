@@ -4,6 +4,7 @@
             <li><a href="#tabs-1">Общее</a></li>
             <li><a href="#tabs-2">Группы</a></li>
             <li><a href="#tabs-3">Организация</a></li>
+            <li><a href="#tabs-4">Exchange</a></li>
         </ul>
         <div id="tabs-1">
             <table>
@@ -17,18 +18,18 @@
                 </tr>
                 <tr>
                     <td><label for="cr_user_fullname">Полное имя: </label></td>
-                    <td><input data-validation="required" type="text" id="cr_user_fullname" required name="cr_user_fullname"></td>
+                    <td><input type="text" id="cr_user_fullname" required name="cr_user_fullname"></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_logon">Имя входа:</label></td>
-                    <td><input type="text" id="cr_user_logon" required name="cr_user_logon"></td>
+                    <td><input data-validetta="required" type="text" id="cr_user_logon" required name="cr_user_logon"></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_pass">Пароль: </label></td>
                     <td><input data-validetta="required,minLength[8],regExp[pwd]" type="password" required id="cr_user_pass" name="cr_user_pass"></td>
                 </tr>
                 <tr>
-                    <td><label for="cr_user_pass">Еще раз: </label></td>
+                    <td><label for="cr_user_pass2">Еще раз: </label></td>
                     <td><input data-validetta="required,equalTo[cr_user_pass]" type="password" id="cr_user_pass2" required name="cr_user_pass_c"></td>
                 </tr>
                 <tr>
@@ -36,7 +37,7 @@
                         входе</label></td>
                 </tr>
                 <tr>
-                    <td><label for="cr_user_cont">Контейнер: </label></td>
+                    <td><label for="cr_user_cont_sh">Контейнер: </label></td>
                     <td><input type="text" readonly id="cr_user_cont_sh" value="Выбрать слева"
                                name="cr_user_cont_sh"></td>
                 </tr>
@@ -44,11 +45,22 @@
 
         </div>
         <div id="tabs-2"></div>
+        <div id="tabs-2">
+            <div id="au_groups">
+                <ul id="au_groups_tree">
+                    <li></li>
+                </ul>
+            </div>
+        </div>
         <div id="tabs-3">
             <table>
                 <tr>
                     <td><label for="cr_user_dol">Должность: </label></td>
                     <td><input style="width:250px" type="text" id="cr_user_dol" name="cr_user_dol"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_tel">Телефон: </label></td>
+                    <td><input data-validetta="number" style="width:250px" type="text" id="cr_user_tel" name="cr_user_tel"></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_email">Электронная почта: </label></td>
@@ -57,6 +69,14 @@
                 <tr>
                     <td><label for="cr_user_descr">Описание: </label></td>
                     <td><textarea id="cr_user_descr" name="cr_user_descr"></textarea></td>
+                </tr>
+            </table>
+        </div>
+        <div id="tabs-4">
+            <table>
+                <tr>
+                    <td><label for="cr_user_exch">Создать почтовый ящик Exchange пользователя:</label></td>
+                    <td><input type="checkbox" name="cr_user_exch" id="cr_user_exch"></td>
                 </tr>
             </table>
         </div>

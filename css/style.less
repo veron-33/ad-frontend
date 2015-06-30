@@ -101,7 +101,7 @@ a {
       height: @inp_div_h;
       float: left;
     }
-    input:last-child {
+  /*  input:last-child {
       margin:2px;
       background: @main_color;
       color: #ffffff;
@@ -111,8 +111,15 @@ a {
       font-size: large;
       font-weight: bold;
       cursor: pointer;
-    }
+    }*/
+    #auths {
+        width: 25px;
+        height: @inp_div_h - 4px;
+        float: right;
+        margin: 1px;
+
   }
+}
 }
 
 
@@ -296,4 +303,7 @@ ul.fancytree-container {
 .ui-menu-item {
   min-width: 140px;
   padding-right: 0 !important;
+}
+#cr_user_tabs {
+    min-height: 280px;
 }

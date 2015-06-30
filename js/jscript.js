@@ -1,47 +1,15 @@
 
-/*var myLanguage = {
-    errorTitle : 'Отправка формы не удалась!',
-    requiredFields : 'Не все поля заполнены',
-    badTime : 'Указано некорректное время',
-    badEmail : 'Указан некорректный адрес',
-    badTelephone : 'Введен некорректный номер телефона',
-    badSecurityAnswer : 'Вы неверно ответили на секретный вопрос',
-    badDate : 'Указана некорректная дата',
-    lengthBadStart : 'Значеное должно быть в пределах ',
-    lengthBadEnd : ' символов',
-    lengthTooLongStart : 'Значение не должно быть больше ',
-    lengthTooShortStart : 'Значение не должно быть меньше ',
-    notConfirmed : 'Значение не подтвержденно',
-    badDomain : 'Некорректный домен',
-    badUrl : 'The answer you gave was not a correct URL',
-    badCustomVal : 'Введено некорректное значение',
-    badInt : 'Должно быть указано число',
-    badSecurityNumber : 'Your social security number was incorrect',
-    badUKVatAnswer : 'Incorrect UK VAT Number',
-    badStrength : 'Пароль не достаточно сильный',
-    badNumberOfSelectedOptionsStart : 'Вы должны выбрать хотя бы ',
-    badNumberOfSelectedOptionsEnd : ' ответов',
-    badAlphaNumeric : 'Значение должно содержать только буквы (лат) и цифры ',
-    badAlphaNumericExtra: ' и ',
-    wrongFileSize : 'The file you are trying to upload is too large',
-    wrongFileType : 'The file you are trying to upload is of wrong type',
-    groupCheckedRangeStart : 'Укажите между ',
-    groupCheckedTooFewStart : 'Выберите по крайне мере ',
-    groupCheckedTooManyStart : 'Выберите не более ',
-    groupCheckedEnd : ' значений'
-};*/
-
 /**
  * функция построения дерева каталогов
  */
 function build_tree() {
 	//задаем параметры дерева
 	var arr = {
-        idPrefix:"ftt_",
-        cookieId:"ftt_",
+        idPrefix: "ftt_",
+        cookieId: "ftt_",
 		extensions: ["persist"],    // расширения куки
-        persist:{
-            expandLazy:true,
+        persist: {
+            expandLazy: true,
             overrideSource: true
         },
 		selectMode: 1,
@@ -72,8 +40,8 @@ function build_tree() {
 		},
 		lazyLoad: function (e, data) {
 			data.result = $.ajax({
-				url:"index.php",
-				dataType:"json",
+				url: "index.php",
+				dataType: "json",
 				data: {
 					act: "get_tree",
 					type: "folders",
@@ -174,7 +142,15 @@ function build_tree() {
  *
  */
 $(function() {
-    $(document).ajaxSuccess(function(e,xhr){check_ajax_header(xhr, false);});
+    $("#auths").button({
+        icons: {primary: "ui-icon-arrowthick-1-e"},
+        text: false
+    }).click(function(){
+        $("#authf").submit();
+    });
+    $(document).ajaxComplete(function(e,xhr){
+        check_ajax_header(xhr, false);
+    });
 	selected_node = false;
     dial_box = $("#dialog_div");
     dial_box.dialog({autoOpen:false});
@@ -262,7 +238,7 @@ function create_user() {
                     selected_tab = $('#cr_user_tabs').tabs("option", "active");
                     if (selected_tab == 0) {arr_l.button({disabled:true})}
                     else {arr_l.button({disabled:false})}
-                    if (selected_tab == 2) {arr_r.button({disabled:true})}
+                    if (selected_tab == 3) {arr_r.button({disabled:true})}
                     else {arr_r.button({disabled:false})}
                 }
             });
@@ -376,9 +352,9 @@ function change_user_pass(user, title) {
                 }
             });
             dial_box.dialog({
-                title: "Изменение пароля пользователя",
+                title: "Установка нового пароля пользователю",
                 modal:true,
-                width: "600px",
+                width: "500px",
                 position: {my: "center top", at: "center top+10%", of: window},
                 resizable: false,
                 buttons: {
@@ -450,12 +426,15 @@ function find_user() {
  * @returns {boolean}
  */
 function check_ajax_header (xhr, returned) {
+   // alert("1: " + xhr.getResponseHeader("location"));
     if ((xhr.getResponseHeader("location") !== undefined)
         && (xhr.getResponseHeader("location") !== null)) {
+      //  alert("2: " + xhr.getResponseHeader("location"));
         window.location.replace(xhr.getResponseHeader("location"));
         if (returned) return false
     }
     else if (returned) return true
+   // alert("3");
 }
 
 /**

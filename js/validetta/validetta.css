@@ -9,9 +9,11 @@
     border: 1px solid #cd0a0a;
 }
 .validetta-bubble--right:before {
-    top: 4px;
-    left: -10px;
-    border-color: transparent #cd0a0a transparent transparent; }
+    top: 6px;
+    left: -4px;
+    /* border-color: transparent #cd0a0a transparent transparent; }*/
+
+}
 .validetta-bubble--bottom:before {
     top: -10px;
     left: 10px;
@@ -21,10 +23,14 @@
     content: '';
     position: absolute;
     display: block;
-    height: 0;
-    width: 0;
-    border-width: 5px;
-    border-style: solid; }
+    height: 5px;
+    width: 5px;
+    border-width: 0 0 1px 1px;
+    border-style: solid;
+    transform: rotate(45deg);
+    background: #FEF1EC;
+
+}
 
 .validetta-inline,
 .validetta-bubble {
