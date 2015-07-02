@@ -64,7 +64,7 @@ a {
 
 .auth_div {
   @inp_div_h:30px;
-  @inp_div_w:200px;
+  @inp_div_w:260px;
   position: relative;
   top: 25%;
   padding:40px 0 0 140px;
@@ -76,7 +76,7 @@ a {
   input {
     border: none 0 !important;
     background: #ffffff;
-    width: @inp_div_w - 5px;
+    width: @inp_div_w - 60px;
     height: @inp_div_h;
     padding: 0 0 0 5px;
     position: relative;
@@ -84,11 +84,31 @@ a {
     top: 0;
     outline: none;
   }
+  div.ui-state-highlight {
+    float: left;
+    width: 16px;
+    height: @inp_div_h - 4px;
+    margin: 1px;
+    border: 0;
+    background: none;
+    div {
+      margin-top: 6px;
+    }
+  }
   .inputu {
     padding: 0;
     background: #ffffff;
     width: @inp_div_w;
     height: @inp_div_h;
+    span:last-child {
+      width: 27px;
+      float: right;
+      margin: 1px;
+      height: @inp_div_h - 4px;
+      span:first-child {
+        right: 0.4em;
+      }
+    }
   }
   .inputp {
     background: #ffffff;
@@ -96,22 +116,6 @@ a {
     width: @inp_div_w;
     height: @inp_div_h;
     margin-top: 15px;
-    input:first-child {
-      width: @inp_div_w - 35px;
-      height: @inp_div_h;
-      float: left;
-    }
-  /*  input:last-child {
-      margin:2px;
-      background: @main_color;
-      color: #ffffff;
-      width: 25px;
-      height: @inp_div_h - 4px;
-      float: right;
-      font-size: large;
-      font-weight: bold;
-      cursor: pointer;
-    }*/
     #auths {
         width: 25px;
         height: @inp_div_h - 4px;
