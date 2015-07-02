@@ -3677,7 +3677,6 @@ $.extend(Fancytree.prototype,
 			this.treeClear(ctx);
 		}
 		source = source || this.options.source;
-
 		if(!source){
 			type = $container.data("type") || "html";
 			switch(type){

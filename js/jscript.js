@@ -57,7 +57,7 @@ function build_tree() {
 				"option",
 				"source",
 				{	url: "index.php",
-					data: {act: 'get_tree', type: 'objects', pNode: node.key},
+					data: {act: 'get_tree', type: 'objects', pNode: selected_node},
 					success: function () {}
 				}
 			);
@@ -148,6 +148,11 @@ $(function() {
     }).click(function(){
         $("#authf").submit();
     });
+    $("#dc").selectmenu({
+        width:27,
+        icons: {button: "ui-icon-home"}
+    });
+
     $(document).ajaxComplete(function(e,xhr){
         check_ajax_header(xhr, false);
     });
@@ -266,7 +271,8 @@ function create_user() {
 	        $("#cr_user_form").ajaxForm({
                 type: "POST",
                 success: function(data) {
-                    alert(data);
+                    $("#tree").fancytree("getActiveNode").setActive(false);
+                    $("#tree").fancytree("getNodeByKey", selected_node).setActive();
                 }
             });
             dial_box.dialog({
@@ -277,7 +283,6 @@ function create_user() {
                 resizable: false,
                 buttons: {
                     "Создать":function () {
-                        check_cr_user_form();
                         $("#cr_user_form").submit();
                         $("#dialog_div").dialog("close");
                         //отключаем чекбоксы у дерева
@@ -309,7 +314,10 @@ function delete_user(users) {
             },
             function(data) {
                 if (data) {
-                    alert("Пользователь успешно удален")
+                    alert("Пользователь успешно удален");
+                    $("#tree").fancytree("getActiveNode").setActive(false);
+                    $("#tree").fancytree("getNodeByKey", selected_node).setActive();
+
                 }
                 else {
                     alert("Ошибка при удалении пользователя. Кури логи")
@@ -374,13 +382,6 @@ function change_user_pass(user, title) {
     );
 }
 
-/**
- *
- * @returns {boolean}
- */
-function check_cr_user_form() {
-    return false;
-}
 
 /**
  *
@@ -392,7 +393,7 @@ function find_user() {
             dial_box.html(data);
 
             $("#find_user_form").ajaxForm(function() {
-                alert("Пользователь создан успешно!");
+                alert("Пользователь создан успешно2!");
             });
             dial_box.dialog({
                 title: "Поиск пользователя",

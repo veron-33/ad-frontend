@@ -141,6 +141,7 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
 
             $result = $adldap->user()->create($attributes);
             if ($result === true) {
+                //echo build_tree(explode("__", $_POST["cr_user_cont"]), "objects");
                 echo "Пользователь ".$_POST["cr_user_fullname"]." успешно создан!!!";
             } else {
                 echo $result;
