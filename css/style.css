@@ -229,7 +229,8 @@ a {
 #locked_list tr td:last-child {
   text-align: center;
 }
-#cr_user_form input {
+#cr_user_form input,
+#cr_user_form textarea {
   width: 250px;
 }
 #cr_user_form tr td:first-child {

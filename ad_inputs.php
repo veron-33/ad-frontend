@@ -103,13 +103,12 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
 
         //Создать нового пользователя
         if (($_POST['act'] == "cr_user")
-            and (isset($_POST["cr_user_surn"]))
-            and (isset($_POST["cr_user_name"]))
-            and (isset($_POST["cr_user_fullname"]))
-            and (isset($_POST["cr_user_logon"]))
-            and (isset($_POST["cr_user_email"]))
-            and (isset($_POST["cr_user_pass"]))
-            and (isset($_POST["cr_user_cont"]))
+            and (isset($_POST["cr_user_surn"]) and strlen($_POST["cr_user_surn"])>0)
+            and (isset($_POST["cr_user_name"]) and strlen($_POST["cr_user_name"])>0)
+            and (isset($_POST["cr_user_fullname"]) and strlen($_POST["cr_user_fullname"])>0)
+            and (isset($_POST["cr_user_logon"]) and strlen($_POST["cr_user_logon"])>0)
+            and (isset($_POST["cr_user_pass"]) and strlen($_POST["cr_user_pass"])>0)
+            and (isset($_POST["cr_user_cont"]) and strlen($_POST["cr_user_cont"])>0)
         ) {
             $cont = str_replace(":", "=", explode("__", $_POST["cr_user_cont"]));
             //$cont=  explode("__", $_POST["cr_user_cont"]);
@@ -133,7 +132,13 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
                 "enabled" => 1,
                 "password" => $_POST["cr_user_pass"],
                 "display_name" => $_POST["cr_user_fullname"],
-                "change_password" => $require_pch
+                "change_password" => $require_pch,
+                "office" => $_POST["cr_user_cab"],
+                "title" => $_POST["cr_user_dol"],
+                "telephone" => $_POST["cr_user_tel"],
+                "company" => $_POST["cr_user_org"],
+                "description" => $_POST["cr_user_descr"],
+                "department" => $_POST["cr_user_otd"]
             );
             //echo "cont=". $cont;
 
@@ -142,7 +147,7 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             $result = $adldap->user()->create($attributes);
             if ($result === true) {
                 //echo build_tree(explode("__", $_POST["cr_user_cont"]), "objects");
-                echo "Пользователь ".$_POST["cr_user_fullname"]." успешно создан!!!";
+                echo true;
             } else {
                 echo $result;
             }
@@ -152,5 +157,4 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
     else {
        header("Location: index.php", true, 200);
     }
-
 }

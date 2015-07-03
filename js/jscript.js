@@ -243,7 +243,7 @@ function create_user() {
                     selected_tab = $('#cr_user_tabs').tabs("option", "active");
                     if (selected_tab == 0) {arr_l.button({disabled:true})}
                     else {arr_l.button({disabled:false})}
-                    if (selected_tab == 3) {arr_r.button({disabled:true})}
+                    if (selected_tab == 2) {arr_r.button({disabled:true})}
                     else {arr_r.button({disabled:false})}
                 }
             });

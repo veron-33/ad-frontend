@@ -2,7 +2,6 @@
     <form enctype="text/plain" action="./" id="cr_user_form">
         <ul>
             <li><a href="#tabs-1">Общее</a></li>
-            <li><a href="#tabs-2">Группы</a></li>
             <li><a href="#tabs-3">Организация</a></li>
             <li><a href="#tabs-4">Exchange</a></li>
         </ul>
@@ -44,39 +43,44 @@
             </table>
 
         </div>
-        <div id="tabs-2"></div>
-        <div id="tabs-2">
-            <div id="au_groups">
-                <ul id="au_groups_tree">
-                    <li></li>
-                </ul>
-            </div>
-        </div>
         <div id="tabs-3">
             <table>
                 <tr>
+                    <td><label for="cr_user_org">Организация: </label></td>
+                    <td><input type="text" id="cr_user_org" name="cr_user_org"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_otd">Отдел: </label></td>
+                    <td><input type="text" id="cr_user_otd" name="cr_user_otd"></td>
+                </tr>
+                <tr>
+                    <td><label for="cr_user_cab">Комната: </label></td>
+                    <td><input type="text" id="cr_user_cab" name="cr_user_cab"></td>
+                </tr>
+                <tr>
                     <td><label for="cr_user_dol">Должность: </label></td>
-                    <td><input style="width:250px" type="text" id="cr_user_dol" name="cr_user_dol"></td>
+                    <td><input type="text" id="cr_user_dol" name="cr_user_dol"></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_tel">Телефон: </label></td>
-                    <td><input data-validetta="number" style="width:250px" type="text" id="cr_user_tel" name="cr_user_tel"></td>
+                    <td><input data-validetta="number" type="text" id="cr_user_tel" name="cr_user_tel"></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_email">Электронная почта: </label></td>
-                    <td><input data-validetta="regExp[mail]" style="width:250px" type="email" id="cr_user_email" name="cr_user_email"></td>
+                    <td><input data-validetta="regExp[mail]" type="email" id="cr_user_email" name="cr_user_email"></td>
                 </tr>
                 <tr>
                     <td><label for="cr_user_descr">Описание: </label></td>
-                    <td><textarea id="cr_user_descr" name="cr_user_descr"></textarea></td>
+                    <td><textarea style="padding: 1px" id="cr_user_descr" name="cr_user_descr"></textarea></td>
                 </tr>
             </table>
         </div>
         <div id="tabs-4">
+            В разработке...
             <table>
                 <tr>
                     <td><label for="cr_user_exch">Создать почтовый ящик Exchange пользователя:</label></td>
-                    <td><input type="checkbox" name="cr_user_exch" id="cr_user_exch"></td>
+                    <td><input style="width:20px" type="checkbox" name="cr_user_exch" id="cr_user_exch"></td>
                 </tr>
             </table>
         </div>
