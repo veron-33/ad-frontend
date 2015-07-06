@@ -6,13 +6,16 @@ if ($main_var != 'parol') exit;     // защита от запуска этог
 
 
 // Пытаемся соединиться с сервером AD
-try {
-	$adldap = new adLDAP($ad_conf);
+if (isset($_SESSION["ad_conf"])) {
+    try {
+        $adldap = new adLDAP($_SESSION["ad_conf"]);
+    }
+    catch (adLDAPException $e) {
+        echo $e;
+        exit();
+    }
 }
-catch (adLDAPException $e) {
-	  echo $e; 
-	  exit();   
-}
+
 
 // Функция проверки авторизации
 /**
@@ -23,6 +26,13 @@ catch (adLDAPException $e) {
 function autorization($usern, $userp) {
 	global $error_text, $fail_time, $adldap;
 	if (!isset($_SESSION['login_failed'])) {
+        try {
+            $adldap = new adLDAP($_SESSION["ad_conf"]);
+        }
+        catch (adLDAPException $e) {
+            echo $e;
+            exit();
+        }
 	  // авторизуемся
 	  $_SESSION['admin'] =($adldap->authenticate($usern, $userp))?true:false;
 	  if ($_SESSION['admin']) {
@@ -32,6 +42,9 @@ function autorization($usern, $userp) {
 		  $_SESSION['usern'] = $usern;
 		  $_SESSION['userp'] = $userp;
 		  $_SESSION['login_fail'] = 0;
+          setcookie("login[0]", $usern, mktime(0, 0, 0, date("m"),   date("d")+14,   date("Y")));
+          setcookie("login[1]", encode($userp,$usern), mktime(0, 0, 0, date("m"),   date("d")+14,   date("Y")));
+          setcookie("login[2]", $_SESSION["dc"],mktime(0, 0, 0, date("m"),   date("d")+14,   date("Y")));
 	  }
 	  else {
 		  $er = $adldap->getLastError();
@@ -60,16 +73,41 @@ function autorization($usern, $userp) {
 }
 
 function logout() {
-    $_SESSION['admin'] = false;
+    //$_SESSION['admin'] = false;
     //$adldap->close();
-    $_SESSION['admin'] = "";
-    $_SESSION['user_login'] = "";
-    //session_destroy();
+    //$_SESSION['admin'] = "";
+    //$_SESSION['user_login'] = "";
+    setcookie("login[0]", "",mktime(0, 0, 0, date("m"),   date("d")+14,   date("Y")) );
+    setcookie("login[1]", "",mktime(0, 0, 0, date("m"),   date("d")+14,   date("Y")) );
+    setcookie("login[2]", "",mktime(0, 0, 0, date("m"),   date("d")+14,   date("Y")) );
+    session_destroy();
 }
 
 
 // Устанавливаем подключение к контрлеру домену в случае установленной сессии
-if ($_SESSION['admin']) autorization($_SESSION['usern'], $_SESSION['userp']);
+if ($_SESSION['admin']) {
+    autorization($_SESSION['usern'], $_SESSION['userp']);
+}
+elseif (isset($_COOKIE["login"])) {
+    $input_username = trim(addslashes($_COOKIE["login"][0]));
+    $input_userpass = encode(trim(addslashes($_COOKIE["login"][1])), $input_username);
+    $ad_host = $_COOKIE["login"][2];
+    $_SESSION["dc"] = $ad_host;
+    // выделяем имя домена
+    $ad_domain = substr(strstr($ad_host,"."),1);
+    // создаем DN-путь домена
+    $ad_dn = "DC=".implode(",DC=",explode(".", $ad_domain));
+    // Подготавливаем настройки подключения к домену
+    $_SESSION["ad_conf"] = array (
+        'base_dn'=>$ad_dn,
+        'account_suffix'=>'@'.$ad_domain,
+        'use_tls'=>false,
+        'use_ssl'=>true,
+        'domain_controllers'=>array($ad_host));
+    autorization($input_username, $input_userpass);
+
+    //autorization($_COOKIE["login"][0], encode($_COOKIE["login"][1],$_COOKIE["login"][0]));
+}
 
 
 function get_cn($dn) {
@@ -191,4 +229,24 @@ function get_locked_users() {
 function unlock_user($user) {
     global $adldap;
     return $adldap->user()->modify($user, array("lockouttime" => '0'));
+}
+
+
+/**
+ * Функция обратимого шифрования пароля с кучей соли (XOR)
+ * @param string $String - строка для шифрования/расшифрования
+ * @param string $Password - ключ шифрования
+ * @return string
+ */
+function encode($String, $Password) {
+    global $salt;
+    $StrLen = strlen($String);
+    $Seq = strtolower($Password);
+    $Gamma = '';
+    while (strlen($Gamma)<$StrLen)    {
+        //$Seq = pack("H*",sha1($Gamma.$Seq.$salt));
+        $Seq = md5($Gamma.$Seq.$salt, true);
+        $Gamma.=substr($Seq,0,8);
+    }
+    return $String^$Gamma;
 }

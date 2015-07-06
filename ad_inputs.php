@@ -18,6 +18,19 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
 	if ($_POST['act'] == "auth") {
 		$input_username = trim(addslashes($_POST['login']));
 		$input_userpass = trim(addslashes($_POST['pass']));
+        $ad_host = $_POST["dc"];
+        $_SESSION['dc'] = $ad_host;
+        // выделяем имя домена
+        $ad_domain = substr(strstr($ad_host,"."),1);
+        // создаем DN-путь домена
+        $ad_dn = "DC=".implode(",DC=",explode(".", $ad_domain));
+        // Подготавливаем настройки подключения к домену
+        $_SESSION["ad_conf"] = array (
+            'base_dn'=>$ad_dn,
+            'account_suffix'=>'@'.$ad_domain,
+            'use_tls'=>false,
+            'use_ssl'=>true,
+            'domain_controllers'=>array($ad_host));
 		autorization($input_username, $input_userpass);
 	}
     elseif (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
@@ -158,3 +171,5 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
        header("Location: index.php", true, 200);
     }
 }
+
+

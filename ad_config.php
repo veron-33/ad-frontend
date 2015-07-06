@@ -14,24 +14,9 @@ $dcs = array(
     "cyclop.s-tech.ru"
 );
 
-// !!! Введите FQDN контролера домена:  !!!
-//$ad_host = "verondc.veronet.local";
+$salt = "aSEwKa"; // Используется для шифрования пароля в cookie
 
 
-if (isset($_POST["dc"])) $_SESSION["dc"] = $_POST["dc"];
-$ad_host = $_SESSION["dc"];
-
-// выделяем имя домена
-$ad_domain = substr(strstr($ad_host,"."),1);
-// создаем DN-путь домена
-$ad_dn = "DC=".implode(",DC=",explode(".", $ad_domain));
-// Подготавливаем настройки подключения к домену
-$ad_conf = array (
-  'base_dn'=>$ad_dn,
-  'account_suffix'=>'@'.$ad_domain,
-  'use_tls'=>false,
-  'use_ssl'=>true,
-  'domain_controllers'=>array($ad_host));
  // Указываем количество попыток при неудачном вводе пароля
 $fail_time = 10;
 //####################################################################################
@@ -45,6 +30,4 @@ $site_name = $ad_host;
 //$my_ip = $_SERVER['REMOTE_ADDR'];
 if (!isset($_SESSION['admin'])) {$_SESSION['admin']=false;}
 
-// страница по-умолчанию
-$target = (isset($_SESSION['target'])) ? $_SESSION['target']:"ad_tree.php";
 ?>
