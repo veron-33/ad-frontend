@@ -239,12 +239,14 @@ class adLDAPUsers {
         if (!in_array("objectsid", $fields)) {
             $fields[] = "objectsid";
         }
+
         $sr = ldap_search($this->adldap->getLdapConnection(), $this->adldap->getBaseDn(), $filter, $fields);
         $entries = ldap_get_entries($this->adldap->getLdapConnection(), $sr);
         
         if (isset($entries[0])) {
             if ($entries[0]['count'] >= 1) {
                 if (in_array("memberof", $fields)) {
+                    //print_r($entries[0]);exit;
                     // AD does not return the primary group in the ldap query, we may need to fudge it
                     if ($this->adldap->getRealPrimaryGroup() && isset($entries[0]["primarygroupid"][0]) && isset($entries[0]["objectsid"][0])){
                         //$entries[0]["memberof"][]=$this->group_cn($entries[0]["primarygroupid"][0]);
@@ -258,7 +260,6 @@ class adLDAPUsers {
                     $entries[0]["memberof"]["count"]++;
                 }
             }
-            
             return $entries;
         }
         return false;

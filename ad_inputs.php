@@ -34,6 +34,7 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
 		autorization($input_username, $input_userpass);
 	}
     elseif (isset($_SESSION['admin']) && $_SESSION['admin'] === true) {
+
         //Получить список заблокированых пользователей
         if ($_GET['act'] == "get_locked_users") {
             $aLu = get_locked_users();
@@ -85,6 +86,7 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             exit;
         }
 
+
         //Удаление пользователя
         if ($_GET['act'] == "del_users") {
             if (isset($_GET['u']) and is_array($_GET["u"])) {
@@ -99,6 +101,7 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             exit;
         }
 
+
         //Cмена пароля пользователя
         if (($_POST['act'] == "change_pass")
             and (isset($_POST['newpass']))
@@ -110,6 +113,47 @@ if (isset($_POST['act']) || isset($_GET['act'])) {
             }
             $result = $adldap->user()->password($_POST['user'],$_POST['newpass']);
             echo $result;
+            exit;
+        }
+
+
+        if (($_GET['act']=="get_user_prop") and (isset($_GET['user']))) {
+            //указываем список необходимых нам полей.
+            //primarygroupid необходим для получения группы по умолчанию, которой нет в memberOf
+            $fields = array(
+                "sn",
+                "givenName",
+                "displayName",
+                "sAMAccountName",
+                "company",
+                "department",
+                "physicalDeliveryOfficeName",
+                "title",
+                "telephoneNumber",
+                "mail",
+                "description",
+                "memberof",
+                "primarygroupid"
+            );
+            $result = $adldap->user()->info($_GET["user"],$fields);
+            // ищем и исключаем из массива ненужные служебные поля
+            $res_count = $result[0]["count"];
+            for ($i=0; $i < $res_count; $i++) {
+                if ($result[0][$i] == "objectsid" || $result[0][$i] == "primarygroupid") {
+                    unset($result[0][$result[0][$i]]);
+                    $result[0]["count"]--;
+                }
+                unset($result[0][$i]);
+            }
+            // преобразуем список групп для работы с fancytree
+            unset($result[0]["memberof"]["count"]);
+            foreach ($result[0]["memberof"] as $key=>$group) {
+                unset($result[0]["memberof"][$key]);
+                $result[0]["memberof"][$key]["title"] = get_cn($group);
+                $result[0]["memberof"][$key]["key"] = $group;
+                $result[0]["memberof"][$key]["icon"] = "group16.png";
+            }
+            echo(json_encode($result));
             exit;
         }
 

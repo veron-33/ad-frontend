@@ -237,6 +237,7 @@ function unlock_user($user) {
  * @param string $String - строка для шифрования/расшифрования
  * @param string $Password - ключ шифрования
  * @return string
+ * TODO: make one-string base64 cookie with separators: server:login:encpass
  */
 function encode($String, $Password) {
     global $salt;
@@ -249,4 +250,26 @@ function encode($String, $Password) {
         $Gamma.=substr($Seq,0,8);
     }
     return $String^$Gamma;
+}
+
+
+/**
+ * Функция кодирования массива в utf-8
+ * @param $array
+ * @return array
+ */
+function utf8_encode_recursive ($array){
+    $result = array();
+    foreach ($array as $key => $value){
+        if (is_array($value))  {
+            $result[$key] = utf8_encode_recursive($value);
+        }
+        else if (is_string($value)){
+            $result[$key] = utf8_encode($value);
+        }
+        else{
+            $result[$key] = $value;
+        }
+    }
+    return $result;
 }

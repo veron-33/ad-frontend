@@ -73,14 +73,20 @@ function build_tree() {
                     }
                 },
                 menu: [
-                    {title:"Свойтсва", cmd:"m_edit", disabled:true},
-                    {title:"Переименовать <kbd>[F2]</kbd>", cmd:"m_ren",
+                    {title:"Свойтсва", uiIcon:"ui-icon-gear", cmd:"m_edit",
+                        action:function(e,ui){
+                            var node = $.ui.fancytree.getNode(ui.target),
+                                user = node.data.login;
+                            get_user_prop(user);
+                        }
+                    },
+                    {title:"Переименовать <kbd>[F2]</kbd>", uiIcon:"ui-icon-pencil", cmd:"m_ren",
                         action:function(e,ui){
                             var node = $.ui.fancytree.getNode(ui.target);
                             node.editStart();
                         }
                     },
-                    {title:"Сменить пароль", cmd:"ch_pwd", disabled:true,
+                    {title:"Сменить пароль", uiIcon:"ui-icon-key", cmd:"ch_pwd", disabled:true,
                         action: function(e,ui) {
                             var node = $.ui.fancytree.getNode(ui.target),
                             user = node.data.login,
@@ -88,8 +94,8 @@ function build_tree() {
                             change_user_pass(user, title);
                         }
                     },
-                    {title:"Отключить", cmd:"m_dis_u", disabled:true},
-                    {title:"Удалить", cmd:"m_del", disabled:true,
+                    {title:"Отключить", uiIcon:"ui-icon-cancel", cmd:"m_dis_u", disabled:true},
+                    {title:"Удалить", uiIcon:"ui-icon-trash", cmd:"m_del", disabled:true,
                         action: function(e,ui){
                             if (confirm("Вы действительно хотите удалить данного пользователя?\nДанное действие необратимо!")) {
                                 var node = $.ui.fancytree.getNode(ui.target),
@@ -100,9 +106,9 @@ function build_tree() {
                         }
                     },
                     {title:"----"},
-                    {title: "Копировать", cmd: "", disabled:true},
-                    {title: "Вырезать", cmd: "", disabled:true},
-                    {title: "Вставить", cmd: "", disabled:true}
+                    {title: "Копировать", uiIcon:"ui-icon-copy", cmd: "", disabled:true},
+                    {title: "Вырезать", uiIcon:"ui-icon-scissors", cmd: "", disabled:true},
+                    {title: "Вставить", uiIcon:"ui-icon-clipboard", cmd: "", disabled:true}
                 ]
             });
 		}
@@ -147,10 +153,22 @@ $(function() {
         text: false
     }).click(function(){
         $("#authf").submit();
+    }).tooltip({
+        content:"Нажмите, чтобы войти"
     });
     $("#dc").selectmenu({
         width:27,
-        icons: {button: "ui-icon-home"}
+        icons: {button: "ui-icon-home"},
+        open: function ( e, ui ) {
+            $("#dc-button").tooltip("option", "disabled", true)
+        },
+        close: function ( e, ui ) {
+            $("#dc-button").tooltip("option", "disabled", false)
+        }
+    });
+    $("#dc-button").tooltip({
+        items:"span",
+        content:"Выберите контроллер домена"
     });
 
     $(document).ajaxComplete(function(e,xhr){
@@ -175,6 +193,11 @@ $(function() {
 			nodeColumnIdx: 1,
 			checkboxColumnIdx: 0
 		},
+        dblclick: function (e,data) {
+            user = data.node.data.login;
+            get_user_prop(user);
+            return false;
+        },
 		gridnav: {
 			autofocusInput: false,
 			handleCursorKeys: true
@@ -538,4 +561,107 @@ function exit() {
     $("#tree").fancytree("getTree").clearCookies();
     $("#tree_objects").fancytree("getTree").clearCookies();
     window.location.replace(window.location + "?exit");
+}
+
+
+/**
+ * Функция получения свойств пользователя
+ * @param user
+ */
+function get_user_prop(user) {
+    $.get(
+        //запрашиваем html-форму
+        "./ajax/ad_prop_user.html",
+        function (html) {
+            $.get(
+                //запрашиваем данные пользователя и вставляем в форму
+                "./",
+                {act: "get_user_prop", user: user},
+                function(data){
+                    data = JSON.parse(data)["0"];
+                    for (var key in data) {
+                        var value = data[key]["0"],
+                            inputid = "#user_edit_form #"+key;
+                        //alert(inputid);
+                        if ($(inputid)) {
+                            $(inputid).attr("value", value);
+                        }
+                    }
+                    groups = data.memberof;
+                    $("#gr_tree").fancytree({
+                        source: groups,
+                        imagePath: "./css/img/",
+                    });
+
+                }
+            );
+
+            dial_box.html(html);
+            $("#user_edit_form").validetta({
+                realTime:true,
+                validators: {
+                    regExp: {
+                        mail: {
+                            pattern: /^[-\w.]+@([A-z0-9][-A-z0-9]+\.)+[A-z]{2,4}$/,
+                            errorMessage: "Адрес почты введен некорректно"
+                        }
+                    }
+                }
+            });
+            var arr_l = $("#cr_user_form_arr_l");
+            var arr_r = $("#cr_user_form_arr_r");
+            var selected_tab = 0;
+            arr_l.button({
+                icons: {primary:"ui-icon-circle-arrow-w"},
+                disabled: true,
+                text: false
+            });
+            arr_r.button({
+                icons: {primary:"ui-icon-circle-arrow-e"},
+                text: false
+            });
+            $('#prop_user_tabs').tabs({
+                activate: function () {
+                    selected_tab = $('#prop_user_tabs').tabs("option", "active");
+                    if (selected_tab == 0) {arr_l.button({disabled:true})}
+                    else {arr_l.button({disabled:false})}
+                    if (selected_tab == 2) {arr_r.button({disabled:true})}
+                    else {arr_r.button({disabled:false})}
+                }
+            });
+            arr_l.click(function () {
+                $('#prop_user_tabs').tabs("option", "active", --selected_tab)
+            });
+            arr_r.click(function () {
+                $('#prop_user_tabs').tabs("option", "active", ++selected_tab)
+            });
+            $("#user_edit_form").ajaxForm({
+                type: "POST",
+                success: function(data) {
+                    $("#tree").fancytree("getActiveNode").setActive(false);
+                    $("#tree").fancytree("getNodeByKey", selected_node).setActive();
+                }
+            });
+            dial_box.dialog({
+                title: "Свойства пользователя",
+                modal:true,
+                width: "600px",
+                position: {my: "center top", at: "center top+10%", of: window},
+                resizable: false,
+                buttons: {
+                    "Применить":function () {
+                        $("#user_edit_form").submit();
+                        $("#dialog_div").dialog("close");
+                        return false
+                    },
+                    "Отмена":function (){
+                        dial_box.dialog("close");
+                        dial_box.empty();
+                    }
+                }
+            });
+            dial_box.dialog("open");
+        }
+    );
+
 }

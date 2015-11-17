@@ -65,3 +65,4 @@
 ### 3.04.2015
 * Fixed issue with creation of new user with cyrillic symbols
 * Added form-validation in create-user-form
+
