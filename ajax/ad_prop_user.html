@@ -1,0 +1,71 @@
+<div id="prop_user_tabs">
+    <form enctype="text/plain" action="./" id="user_edit_form">
+        <ul>
+            <li><a href="#tabs-1">Общее</a></li>
+            <li><a href="#tabs-2">Группы</a></li>
+            <li><a href="#tabs-3">Организация</a></li>
+        </ul>
+        <div id="tabs-1">
+            <table>
+                <tr>
+                    <td><label for="sn">Фамилия: </label></td>
+                    <td><input data-validetta="required,minLength[2],maxLength[30]" type="text" id="sn" required name="sn">*</td>
+                </tr>
+                <tr>
+                    <td><label for="givenname">Имя: </label></td>
+                    <td><input data-validetta="required,minLength[2],maxLength[30]" type="text" id="givenname" required name="givenname">*</td>
+                </tr>
+                <tr>
+                    <td><label for="displayname">Полное имя: </label></td>
+                    <td><input type="text" id="displayname" required name="displayname"></td>
+                </tr>
+                <tr>
+                    <td><label for="samaccountname">Имя входа:</label></td>
+                    <td><input data-validetta="required" type="text" id="samaccountname" required name="samaccountname"></td>
+                </tr>
+            </table>
+
+        </div>
+        <div id="tabs-2">
+            <div id="gr_tree"></div>
+        </div>
+        <div id="tabs-3">
+            <table>
+                <tr>
+                    <td><label for="company">Организация: </label></td>
+                    <td><input type="text" id="company" name="company"></td>
+                </tr>
+                <tr>
+                    <td><label for="department">Отдел: </label></td>
+                    <td><input type="text" id="department" name="department"></td>
+                </tr>
+                <tr>
+                    <td><label for="physicaldeliveryofficename">Комната: </label></td>
+                    <td><input type="text" id="physicaldeliveryofficename" name="physicaldeliveryofficename"></td>
+                </tr>
+                <tr>
+                    <td><label for="title">Должность: </label></td>
+                    <td><input type="text" id="title" name="title"></td>
+                </tr>
+                <tr>
+                    <td><label for="telephonenumber">Телефон: </label></td>
+                    <td><input data-validetta="number" type="text" id="telephonenumber" name="telephonenumber"></td>
+                </tr>
+                <tr>
+                    <td><label for="mail">Электронная почта: </label></td>
+                    <td><input data-validetta="regExp[mail]" type="email" id="mail" name="mail"></td>
+                </tr>
+                <tr>
+                    <td><label for="description">Описание: </label></td>
+                    <td><input type="text" id="description" name="description"></td></td>
+                </tr>
+            </table>
+        </div>
+        <input type="hidden" name="act" value="edit_user">
+        <input type="hidden" name="gr_mod" value="0">
+    </form>
+</div>
+<div class="cr_user_form_arrows">
+    <div id="cr_user_form_arr_l"></div>
+    <div id="cr_user_form_arr_r"></div>
+</div>
